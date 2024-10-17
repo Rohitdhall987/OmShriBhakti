@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "913274356409",
+    "project_id": "latestom-462b9",
+    "storage_bucket": "latestom-462b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:913274356409:android:2c2cfdeb7af8f90bc69168",
+        "android_client_info": {
+          "package_name": "com.omshribhakti.omshribhakti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "913274356409-jpquqfk3ea76n52b7ccj0bm7mr5e6frs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCqFE51UcOBh-d6PyAZHVKXHMFJPPgpQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "913274356409-jpquqfk3ea76n52b7ccj0bm7mr5e6frs.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "913274356409-flkdsis884g3ut7l7lqgf2ea87ml2vmm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.omshribhakti.omshribhakti"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
