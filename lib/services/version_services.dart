@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:omshribhakti/model/Version.dart';
+import 'package:omshribhakti/model/version.dart';
 import 'package:http/http.dart' as http;
 import 'package:omshribhakti/provider/VersionProvider.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -14,22 +14,22 @@ class VersionService {
     http.Response? response;
 
     do {
-      try {
+      // try {
         response = await http.get(Uri.parse('${url}versionCheck'));
 
         if ( response.statusCode == 200) {
           success = true;
         } else {
-          print(response.body );
+          // print(response.body );
           throw "Unable to load version from API";
         }
-      } catch (e) {
-        print("Error: $e");
-
-      }
+      // } catch (e) {
+      //   // print("Error: $e");
+      //
+      // }
     } while (!success);
 
-    final latestVersion = Version.fromJson(jsonDecode(response!.body));
+    final latestVersion = Version.fromJson(jsonDecode(response.body));
     ref.read(versionProvider.notifier).state = latestVersion;
 
     return latestVersion;

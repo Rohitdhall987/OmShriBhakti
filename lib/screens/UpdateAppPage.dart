@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:omshribhakti/provider/VersionProvider.dart';
-import 'package:omshribhakti/utils/Colors.dart';
+import 'package:omshribhakti/utils/colors.dart';
 
 class UpdateApp extends ConsumerWidget {
   const UpdateApp({super.key});
@@ -32,7 +32,7 @@ class UpdateApp extends ConsumerWidget {
                     ),
                     child: Center(child: Icon(Icons.warning_rounded,color: Colors.white,size: MediaQuery.sizeOf(context).height*0.08,)),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Card(
@@ -45,19 +45,19 @@ class UpdateApp extends ConsumerWidget {
                         text: TextSpan(
                           style: const TextStyle(fontSize: 18, color: Colors.white),
                           children: [
-                            TextSpan(text: "App is not Updated "),
-                            TextSpan(
+                            const TextSpan(text: "App is not Updated "),
+                            const TextSpan(
                               text: "current app version is ",
-                              style: const TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            TextSpan(text: "$currentVersion"),
-                            TextSpan(text: " and "),
-                            TextSpan(
+                            TextSpan(text: currentVersion),
+                            const TextSpan(text: " and "),
+                            const TextSpan(
                               text: "latest version is ",
-                              style: const TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            TextSpan(text: "${latestVersion!.version}"),
-                            TextSpan(text: " tap the \"Update App\" button to update the app. or you can directly go to  Google PlayStore to Update the app."),
+                            TextSpan(text: latestVersion!.version),
+                            const TextSpan(text: " tap the \"Update App\" button to update the app. or you can directly go to  Google PlayStore to Update the app."),
                           ],
                         ),
                       ),

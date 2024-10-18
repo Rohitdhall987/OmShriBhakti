@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:omshribhakti/services/VersionServices.dart';
-import 'package:omshribhakti/utils/Colors.dart';
+import 'package:omshribhakti/services/version_services.dart';
+import 'package:omshribhakti/utils/colors.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
@@ -18,11 +18,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     checkVersion();
   }
 
-  // Function to check and update version
   void checkVersion() async {
-    await VersionService.getLatestVersion(ref);
+    // await VersionService.getLatestVersion(ref);
     if ( await VersionService.isUpdated(ref)) {
-
+      GoRouter.of(context).goNamed("NavigationBar");
     } else {
       GoRouter.of(context).goNamed("Update");
     }

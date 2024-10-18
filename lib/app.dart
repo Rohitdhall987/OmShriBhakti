@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:omshribhakti/utils/Colors.dart';
+import 'package:omshribhakti/utils/colors.dart';
 import 'package:omshribhakti/utils/routers.dart';
 
 
