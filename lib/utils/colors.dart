@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 class AppTheme{
 
+  static const Color textGray=  Color(0xffA1A1A1);
+
   static const MaterialColor primary = MaterialColor(
     0xffFF2A03,
     <int, Color>{
@@ -46,6 +48,8 @@ class AppTheme{
       900: Color(0xff262626),
     },
   );
+
+
 
 
 }

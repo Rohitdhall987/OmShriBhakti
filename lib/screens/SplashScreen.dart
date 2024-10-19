@@ -21,7 +21,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   void checkVersion() async {
     // await VersionService.getLatestVersion(ref);
     if ( await VersionService.isUpdated(ref)) {
-      GoRouter.of(context).goNamed("NavigationBar");
+      GoRouter.of(context).goNamed("NavigationBarScreen");
     } else {
       GoRouter.of(context).goNamed("Update");
     }
