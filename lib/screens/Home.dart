@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:omshribhakti/utils/Colors.dart';
-import 'package:omshribhakti/widgets/LiveDarshanCard.dart';
+import 'package:omshribhakti/widgets/liveDarshanCard.dart';
 import 'package:omshribhakti/widgets/MenuItem.dart';
+import 'package:omshribhakti/widgets/quotesThumbnail.dart';
 import 'package:omshribhakti/widgets/speciaIItem.dart';
+import 'package:omshribhakti/widgets/trendingProduct.dart';
 import 'package:omshribhakti/widgets/wallet.dart';
 
 class Home extends StatefulWidget {
@@ -88,6 +90,7 @@ class _HomeState extends State<Home> {
               // membership renew box
               Container(
                 padding: const EdgeInsets.all(8.0),
+                margin: const EdgeInsets.symmetric(horizontal: sideGaps),
 
                 decoration: BoxDecoration(
                   color: AppTheme.backgroundLight,
@@ -131,7 +134,7 @@ class _HomeState extends State<Home> {
                //live darshan
 
                Padding(
-                 padding: const EdgeInsets.symmetric(vertical: 8.0),
+                 padding: const EdgeInsets.symmetric(vertical: 8.0 ,horizontal: sideGaps),
                  child: Text("🔴 Live Indian Temple",
                   style: TextStyle(
                     color: Colors.white
@@ -178,20 +181,23 @@ class _HomeState extends State<Home> {
 
               //menu grid
 
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height*0.235,
-                child: GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 8,
-                    shrinkWrap: true,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 4,
-                      mainAxisSpacing: 8,
-                      crossAxisSpacing: 8
-                    ),
-                    itemBuilder:(context,index){
-                      return menuItem(context,Icons.temple_hindu, "Mandir");
-                    }
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: sideGaps),
+                child: SizedBox(
+                  height: MediaQuery.sizeOf(context).height*0.235,
+                  child: GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 8,
+                      shrinkWrap: true,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                        mainAxisSpacing: 8,
+                        crossAxisSpacing: 8
+                      ),
+                      itemBuilder:(context,index){
+                        return menuItem(context,Icons.temple_hindu, "Mandir");
+                      }
+                  ),
                 ),
               ),
 
@@ -200,22 +206,166 @@ class _HomeState extends State<Home> {
               ),
 
               // special section
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: sideGaps),
+                child: SizedBox(
+                  height: MediaQuery.sizeOf(context).height*0.14,
+                  child: GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 4,
+                      shrinkWrap: true,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 8,
+                          crossAxisSpacing: 8,
+                          childAspectRatio:3.6
+                      ),
+                      itemBuilder:(context,index){
+                        return specialItem("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png","Quiz Game", "Play & Earn");
+                      }
+                  ),
+                ),
+              ),
               SizedBox(
-                height: MediaQuery.sizeOf(context).height*0.235,
-                child: GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 4,
-                    shrinkWrap: true,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 8,
-                        crossAxisSpacing: 8,
-                        childAspectRatio:3.6
+                height: 50,
+              ),
+              
+              //trending products list
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: sideGaps),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.shopping_cart_rounded,
+                          color: Colors.white,
+                        ),
+                        Text("Trending Products",
+                          style: TextStyle(
+                              color: Colors.white
+                          ),
+                        )
+                      ],
                     ),
-                    itemBuilder:(context,index){
-                      return specialItem("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png","Quiz Game", "Play & Earn");
+                    Text("See All",
+                      style: TextStyle(
+                        color: AppTheme.primary
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              SizedBox(
+                height: MediaQuery.sizeOf(context).height*0.225,
+                child: ListView.builder(
+                  itemCount: 4,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context,index){
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: SizedBox(
+                          width: MediaQuery.sizeOf(context).width*0.4,
+                            child: trendingProduct("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "Shri Ram ji Lockets")
+                        ),
+                      );
                     }
                 ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Stack(
+                children: [
+                  Container(
+                    width: MediaQuery.sizeOf(context).width,
+                    height: MediaQuery.sizeOf(context).height*0.29,
+
+                    decoration:const BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [Color(0xff24ACE6),Color(0xff0251AE)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight
+                      )
+                    ),
+                    child: Container(
+                      width: MediaQuery.sizeOf(context).width,
+                      height: MediaQuery.sizeOf(context).height*0.02,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            colors:[
+                              AppTheme.background,
+                              Colors.transparent
+                            ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter
+                        )
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: SizedBox(
+                      height: MediaQuery.sizeOf(context).height*0.29,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Share Quotes",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18
+                                    ),
+                                  ),
+                                  Text("With your photo and name",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Text("See All",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold
+                                ),
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              SizedBox(
+                                height: 16,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title", "subTitle"),
+                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title", "subTitle"),
+                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title", "subTitle"),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+                ],
               ),
             ],
           ),
