@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:omshribhakti/provider/navigation_provider.dart';
 import 'package:omshribhakti/utils/colors.dart';
 import 'package:omshribhakti/widgets/nav_item.dart';
 

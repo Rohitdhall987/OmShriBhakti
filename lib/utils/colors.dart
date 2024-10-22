@@ -35,7 +35,7 @@ class AppTheme{
   );
 
   static const MaterialColor backgroundLight = MaterialColor(
-    0xff0c0c0c,
+    0xff262626,
     <int, Color>{
       50: Color(0x3c262626),
       100: Color(0x5f262626),

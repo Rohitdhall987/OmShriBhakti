@@ -13,24 +13,27 @@ class VersionService {
     bool success = false;
     http.Response? response;
 
+    late Version  latestVersion;
+
     do {
-      // try {
+      try {
         response = await http.get(Uri.parse('${url}versionCheck'));
 
         if ( response.statusCode == 200) {
           success = true;
+
+           latestVersion = Version.fromJson(jsonDecode(response.body));
+          ref.read(versionProvider.notifier).state = latestVersion;
         } else {
           // print(response.body );
           throw "Unable to load version from API";
         }
-      // } catch (e) {
-      //   // print("Error: $e");
-      //
-      // }
+      } catch (e) {
+        // print("Error: $e");
+
+      }
     } while (!success);
 
-    final latestVersion = Version.fromJson(jsonDecode(response.body));
-    ref.read(versionProvider.notifier).state = latestVersion;
 
     return latestVersion;
   }
