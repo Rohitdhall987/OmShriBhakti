@@ -15,14 +15,15 @@ Widget menuItem(context,icon,name){
       children: [
         Expanded(
             child: Icon(icon,
-              size: MediaQuery.sizeOf(context).width*0.12,
+              size: MediaQuery.sizeOf(context).width*0.08,
               color: AppTheme.primary,
             )
         ),
         Text(name,
           style: TextStyle(
             color: Colors.white,
-            overflow: TextOverflow.ellipsis
+            overflow: TextOverflow.ellipsis,
+            fontSize: 12
           ),
         ),
       ],

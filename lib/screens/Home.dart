@@ -1,5 +1,8 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:omshribhakti/utils/Colors.dart';
+import 'package:omshribhakti/widgets/SliderCard.dart';
 import 'package:omshribhakti/widgets/liveDarshanCard.dart';
 import 'package:omshribhakti/widgets/MenuItem.dart';
 import 'package:omshribhakti/widgets/quotesThumbnail.dart';
@@ -176,7 +179,7 @@ class _HomeState extends State<Home> {
               ),
 
               SizedBox(
-                height: 50,
+                height: 30,
               ),
 
               //menu grid
@@ -202,7 +205,7 @@ class _HomeState extends State<Home> {
               ),
 
               SizedBox(
-                height: 40,
+                height: 30,
               ),
 
               // special section
@@ -227,7 +230,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               SizedBox(
-                height: 50,
+                height: 30,
               ),
               
               //trending products list
@@ -279,6 +282,29 @@ class _HomeState extends State<Home> {
               SizedBox(
                 height: 30,
               ),
+              CarouselSlider(
+                  items: [
+                    GestureDetector(
+                      onTap: (){
+                      },
+                      child: SlicerCard(title: "title",  fromState: "fromState", toState: "toState", date: "2024-10-25 14:15:16", image: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"),
+                    ),
+                    GestureDetector(
+                      onTap: (){
+                      },
+                      child: SlicerCard(title: "title",  fromState: "fromState", toState: "toState", date: "2024-10-27 14:15:16", image: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"),
+                    ),
+                  ],
+                  options: CarouselOptions(
+                      height: MediaQuery.sizeOf(context).height*0.4,
+                      viewportFraction: 1,
+                      autoPlay: true,
+                      padEnds: false
+                  )
+              ),
+              SizedBox(
+                height: 30,
+              ),
               Stack(
                 children: [
                   Container(
@@ -286,24 +312,24 @@ class _HomeState extends State<Home> {
                     height: MediaQuery.sizeOf(context).height*0.29,
 
                     decoration:const BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [Color(0xff24ACE6),Color(0xff0251AE)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight
-                      )
+                        gradient: LinearGradient(
+                            colors: [Color(0xff24ACE6),Color(0xff0251AE)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight
+                        )
                     ),
                     child: Container(
                       width: MediaQuery.sizeOf(context).width,
                       height: MediaQuery.sizeOf(context).height*0.02,
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            colors:[
-                              AppTheme.background,
-                              Colors.transparent
-                            ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter
-                        )
+                          gradient: LinearGradient(
+                              colors:[
+                                AppTheme.background,
+                                Colors.transparent
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter
+                          )
                       ),
                     ),
                   ),
@@ -320,25 +346,25 @@ class _HomeState extends State<Home> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Share Quotes",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18
-                                    ),
-                                  ),
-                                  Text("With your photo and name",
+                                  Text("Yoga & Meditation",
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 16
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18
+                                    ),
+                                  ),
+                                  Text("Improve Health",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12
                                     ),
                                   )
                                 ],
                               ),
                               Text("See All",
                                 style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold
                                 ),
                               )
                             ],
@@ -360,7 +386,98 @@ class _HomeState extends State<Home> {
                                 height: 8,
                               ),
                             ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Stack(
+                children: [
+                  Container(
+                    width: MediaQuery.sizeOf(context).width,
+                    height: MediaQuery.sizeOf(context).height*0.29,
+
+                    decoration:const BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [Color(0xff24ACE6),Color(0xff0251AE)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight
+                        )
+                    ),
+                    child: Container(
+                      width: MediaQuery.sizeOf(context).width,
+                      height: MediaQuery.sizeOf(context).height*0.02,
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              colors:[
+                                AppTheme.background,
+                                Colors.transparent
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter
                           )
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: SizedBox(
+                      height: MediaQuery.sizeOf(context).height*0.29,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Share Quotes",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18
+                                    ),
+                                  ),
+                                  Text("With your photo and name",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Text("See All",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold
+                                ),
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              SizedBox(
+                                height: 16,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title", "subTitle"),
+                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title", "subTitle"),
+                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title", "subTitle"),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
