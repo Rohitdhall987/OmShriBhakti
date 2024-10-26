@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:omshribhakti/provider/Navigation_Provider.dart';
 import 'package:omshribhakti/screens/Home.dart';
+import 'package:omshribhakti/screens/Music.dart';
+import 'package:omshribhakti/screens/Video.dart';
 import 'package:omshribhakti/widgets/bottom_navigation_bar.dart';
 
 class NavigationBarScreen extends ConsumerWidget {
@@ -24,9 +26,9 @@ class NavigationBarScreen extends ConsumerWidget {
     // Screens to show
     final tabScreens = [
       const Home(),
+      const Videos(),
       const Placeholder(),
-      const Placeholder(),
-      const Placeholder(),
+      const Music(),
       const Placeholder(),
     ];
 
