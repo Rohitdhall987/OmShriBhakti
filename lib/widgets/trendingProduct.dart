@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:omshribhakti/widgets/CachedNetworkImage.dart';
 
 Widget trendingProduct(image,title){
 
@@ -8,7 +9,7 @@ Widget trendingProduct(image,title){
       Expanded(
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
-            child: Image.network(image,fit: BoxFit.fitHeight,)
+            child: cachedNetworkImage(image)
         ),
       ),
       Text(title,

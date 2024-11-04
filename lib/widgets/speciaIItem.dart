@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:omshribhakti/utils/Colors.dart';
+import 'package:omshribhakti/widgets/CachedNetworkImage.dart';
 
 Widget specialItem(image,title,subTitle){
   return Container(
@@ -14,8 +15,7 @@ Widget specialItem(image,title,subTitle){
       children: [
         Expanded(
           flex: 4,
-            child: Image.network(image,
-              fit: BoxFit.fitHeight,
+            child: cachedNetworkImage(image,
             )
         ),
         SizedBox(

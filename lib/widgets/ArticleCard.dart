@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:omshribhakti/utils/Colors.dart';
 import 'package:omshribhakti/utils/format.dart';
+import 'package:omshribhakti/widgets/CachedNetworkImage.dart';
 
 Widget articleCard({
   required String type,
@@ -29,9 +30,9 @@ Widget articleCard({
               itemBuilder: (context,index){
                 return Padding(
                   padding: const EdgeInsets.only(right: 8.0),
-                  child: Image.network(images[index],
-                    fit: BoxFit.fitHeight,
-                  ),
+                  child: cachedNetworkImage(images[index]),
+
+
                 );
               },
           ),

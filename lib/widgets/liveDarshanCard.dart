@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:omshribhakti/utils/Colors.dart';
+import 'package:omshribhakti/widgets/CachedNetworkImage.dart';
 
 Widget liveDarshanCard(){
   return ClipRRect(
@@ -17,7 +18,7 @@ Widget liveDarshanCard(){
         children: [
           Expanded(child: SizedBox(
             height: double.maxFinite,
-              child: Image.network("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",fit: BoxFit.fitHeight,)
+              child: cachedNetworkImage("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png")
           )),
           SizedBox(
             width: 8,

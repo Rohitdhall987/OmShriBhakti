@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:omshribhakti/utils/Colors.dart';
+import 'package:omshribhakti/widgets/CachedNetworkImage.dart';
 Widget thumbnailCard(height,width,title,image){
   return SizedBox(
     height: height,
@@ -12,7 +13,7 @@ Widget thumbnailCard(height,width,title,image){
           SizedBox(
               height: height,
               width: width,
-              child: Image.network(image,fit: BoxFit.fill,)
+              child: cachedNetworkImage(image)
           ),
 
           Container(

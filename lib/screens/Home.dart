@@ -198,7 +198,12 @@ class _HomeState extends State<Home> {
                         crossAxisSpacing: 8
                       ),
                       itemBuilder:(context,index){
-                        return menuItem(context,Icons.temple_hindu, "Mandir");
+                        return GestureDetector(
+                          onTap: (){
+                            GoRouter.of(context).pushNamed("Gods");
+                          },
+                            child: menuItem(context,Icons.temple_hindu, "Mandir")
+                        );
                       }
                   ),
                 ),

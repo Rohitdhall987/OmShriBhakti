@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:omshribhakti/widgets/CachedNetworkImage.dart';
 
 Widget quotesThumbnail(context,String image,title,subTitle){
   double width=MediaQuery.sizeOf(context).width*0.275;
@@ -29,21 +30,34 @@ Widget quotesThumbnail(context,String image,title,subTitle){
         height: MediaQuery.sizeOf(context).height*0.17,
         child: Column(
           children: [
-            Container(
-              height: MediaQuery.sizeOf(context).height*0.12,
-              width: width*0.8,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                image: DecorationImage(image: NetworkImage(image),fit: BoxFit.fitHeight,),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26,
-                    offset: Offset(1,1),
-                    spreadRadius: 0,
-                    blurRadius: 4
-                  )
-                ]
-              ),
+            FutureBuilder<ImageProvider>(
+              future: getImageProvider(image),
+              builder: (context, snapshot) {
+                return Container(
+                  height: MediaQuery.sizeOf(context).height * 0.12,
+                  width: width * 0.8,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    image: snapshot.hasData
+                        ? DecorationImage(
+                      image: snapshot.data!,
+                      fit: BoxFit.fitHeight,
+                    )
+                        : null, // No image while loading
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        offset: Offset(1, 1),
+                        spreadRadius: 0,
+                        blurRadius: 4,
+                      )
+                    ],
+                  ),
+                  child: !snapshot.hasData
+                      ? Container(color: Colors.grey[300]) // Placeholder color
+                      : null,
+                );
+              },
             ),
 
             Text(title,
