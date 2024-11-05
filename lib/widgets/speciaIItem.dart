@@ -15,8 +15,7 @@ Widget specialItem(image,title,subTitle){
       children: [
         Expanded(
           flex: 4,
-            child: cachedNetworkImage(image,
-            )
+            child: cachedNetworkImage(image,BoxFit.fitHeight)
         ),
         SizedBox(
           width: 4,

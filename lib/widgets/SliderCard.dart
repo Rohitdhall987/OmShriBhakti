@@ -54,7 +54,7 @@ class SlicerCard extends StatelessWidget {
                 width: MediaQuery.sizeOf(context).width,
                 height: MediaQuery.sizeOf(context).height,
                 decoration: BoxDecoration(
-                  image: DecorationImage(image: NetworkImage(image),fit: BoxFit.fitHeight),
+                  image: snapshot.hasData? DecorationImage(image: snapshot.data!,fit: BoxFit.fitHeight) :null,
                   color: Colors.grey,
                 ),
                 child: Column(

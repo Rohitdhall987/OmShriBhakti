@@ -9,7 +9,7 @@ Widget trendingProduct(image,title){
       Expanded(
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
-            child: cachedNetworkImage(image)
+            child: cachedNetworkImage(image,BoxFit.fitHeight)
         ),
       ),
       Text(title,

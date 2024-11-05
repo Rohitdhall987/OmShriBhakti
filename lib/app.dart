@@ -19,6 +19,15 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
           brightness: Brightness.light,
           textTheme: GoogleFonts.robotoTextTheme(),
+          appBarTheme: AppBarTheme(
+            foregroundColor: Colors.white,
+            backgroundColor: AppTheme.background,
+            elevation: 0,
+            centerTitle: true,
+            iconTheme: IconThemeData(
+              color: Colors.white
+            )
+          ),
           colorScheme: ColorScheme.fromSeed(
             seedColor: AppTheme.primary,
           ),

@@ -13,7 +13,7 @@ Widget thumbnailCard(height,width,title,image){
           SizedBox(
               height: height,
               width: width,
-              child: cachedNetworkImage(image)
+              child: cachedNetworkImage(image,BoxFit.fitHeight)
           ),
 
           Container(

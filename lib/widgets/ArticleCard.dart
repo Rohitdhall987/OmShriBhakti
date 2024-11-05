@@ -30,7 +30,7 @@ Widget articleCard({
               itemBuilder: (context,index){
                 return Padding(
                   padding: const EdgeInsets.only(right: 8.0),
-                  child: cachedNetworkImage(images[index]),
+                  child: cachedNetworkImage(images[index],BoxFit.fitHeight),
 
 
                 );

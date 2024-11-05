@@ -18,7 +18,7 @@ Widget liveDarshanCard(){
         children: [
           Expanded(child: SizedBox(
             height: double.maxFinite,
-              child: cachedNetworkImage("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png")
+              child: cachedNetworkImage("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",BoxFit.fitHeight)
           )),
           SizedBox(
             width: 8,
