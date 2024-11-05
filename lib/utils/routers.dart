@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:omshribhakti/screens/AllLiveDarshans.dart';
 import 'package:omshribhakti/screens/Gods.dart';
 import 'package:omshribhakti/screens/NavigationBarScreen.dart';
 import 'package:omshribhakti/screens/SongsByMonth.dart';
@@ -26,4 +27,8 @@ final GoRouter routes = GoRouter(routes: [
       path: "/Gods",
       name: "Gods",
       builder: (context, state) => const Gods()),
+  GoRoute(
+      path: "/AllLiveDarshans",
+      name: "AllLiveDarshans",
+      builder: (context, state) => const AllLiveDarshans()),
 ]);

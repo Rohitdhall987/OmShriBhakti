@@ -164,12 +164,15 @@ class _HomeState extends State<Home> {
               SizedBox(
                 height: 8,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text("See All Temples",
-                    style: TextStyle(
-                      color: Colors.white
+                  GestureDetector(
+                    onTap: ()=>GoRouter.of(context).pushNamed("AllLiveDarshans"),
+                    child: Text("See All Temples",
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
                     ),
                   ),
                   Icon(Icons.keyboard_double_arrow_right_outlined,
