@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
     {
       "name":"Songs",
       "icon":FontAwesomeIcons.compactDisc,
-      "routeName":"",
+      "routeName":"Music",
     },
     {
       "name":"Mandir",
@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
     {
       "name":"Free Coin",
       "icon":FontAwesomeIcons.coins,
-      "routeName":"",
+      "routeName":"Web",
     },
   ];
 
@@ -92,7 +92,9 @@ class _HomeState extends State<Home> {
                     SizedBox(
                       width: MediaQuery.sizeOf(context).width*0.1,
                     ),
-                    Expanded(child: wallet())
+                    Expanded(child: GestureDetector(
+                          onTap: ()=>GoRouter.of(context).pushNamed("Web"),
+                        child: wallet()))
                   ],
                 ),
               ),
@@ -280,7 +282,9 @@ class _HomeState extends State<Home> {
                           childAspectRatio:3.6
                       ),
                       itemBuilder:(context,index){
-                        return specialItem("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png","Quiz Game", "Play & Earn");
+                        return GestureDetector(
+                            onTap: ()=>GoRouter.of(context).pushNamed("Web"),
+                            child: specialItem("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png","Quiz Game", "Play & Earn"));
                       }
                   ),
                 ),
@@ -341,13 +345,11 @@ class _HomeState extends State<Home> {
               CarouselSlider(
                   items: [
                     GestureDetector(
-                      onTap: (){
-                      },
+                      onTap: ()=>GoRouter.of(context).pushNamed("Web"),
                       child: SlicerCard(title: "title",  fromState: "fromState", toState: "toState", date: "2024-10-25 14:15:16", image: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"),
                     ),
                     GestureDetector(
-                      onTap: (){
-                      },
+                      onTap: ()=>GoRouter.of(context).pushNamed("Web"),
                       child: SlicerCard(title: "title",  fromState: "fromState", toState: "toState", date: "2024-10-27 14:15:16", image: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"),
                     ),
                   ],

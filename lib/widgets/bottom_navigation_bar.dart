@@ -44,10 +44,10 @@ Widget myBottomNavigationBar(ref, context, index, changeIndex) {
               child: SizedBox(
                 width: MediaQuery.sizeOf(context).width / 5,
                 child: buildNavItem(
-                  icon: Icons.music_note,
+                  icon: Icons.chrome_reader_mode,
                   index: 3,
                   selectedIndex: index,
-                  label: "Music",
+                  label: "Articles",
                 ),
               ),
             ),
