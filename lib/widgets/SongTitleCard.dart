@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:omshribhakti/utils/Colors.dart';
 
 Widget songTitleCard({required BuildContext context,required int id, String? name,String? singer}){
-  return Card(
-  margin: EdgeInsets.all(8),
-    color: AppTheme.backgroundLight,
+  return Container(
+    margin: const EdgeInsets.all(6),
+
+    decoration: BoxDecoration(
+      color: AppTheme.backgroundLight,
+      border: Border.all(color: Colors.white24),
+      borderRadius: BorderRadius.circular(16)
+    ),
     child: Padding(
       padding: const EdgeInsets.all(16.0),
       child: Row(

@@ -7,6 +7,7 @@ Widget godCard ({required String name ,required String image}){
     padding:const EdgeInsets.symmetric(vertical: 8,horizontal: 16),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.white24),
           color: AppTheme.backgroundLight
       ),
       child: Column(

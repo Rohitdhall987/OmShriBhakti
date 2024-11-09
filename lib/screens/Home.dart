@@ -31,12 +31,12 @@ class _HomeState extends State<Home> {
     {
       "name":"Geeta",
       "icon":FontAwesomeIcons.book,
-      "routeName":"",
+      "routeName":"Geeta",
     },
     {
       "name":"Mantra",
       "icon":FontAwesomeIcons.scroll,
-      "routeName":"",
+      "routeName":"MantraPage",
     },
     {
       "name":"Songs",
