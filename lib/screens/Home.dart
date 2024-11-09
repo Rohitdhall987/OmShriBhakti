@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:omshribhakti/utils/Colors.dart';
 import 'package:omshribhakti/widgets/SliderCard.dart';
@@ -20,6 +21,50 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   static const double sideGaps=8.0;
+
+  static const List<Map<String,dynamic>> menuItems=[
+    {
+      "name":"Horoscope",
+      "icon":FontAwesomeIcons.starOfDavid,
+      "routeName":"",
+    },
+    {
+      "name":"Geeta",
+      "icon":FontAwesomeIcons.book,
+      "routeName":"",
+    },
+    {
+      "name":"Mantra",
+      "icon":FontAwesomeIcons.scroll,
+      "routeName":"",
+    },
+    {
+      "name":"Songs",
+      "icon":FontAwesomeIcons.compactDisc,
+      "routeName":"",
+    },
+    {
+      "name":"Mandir",
+      "icon":FontAwesomeIcons.gopuram,
+      "routeName":"",
+    },
+    {
+      "name":"Podcast",
+      "icon":FontAwesomeIcons.podcast,
+      "routeName":"",
+    },
+    {
+      "name":"Gods",
+      "icon":FontAwesomeIcons.om,
+      "routeName":"Gods",
+    },
+    {
+      "name":"Free Coin",
+      "icon":FontAwesomeIcons.coins,
+      "routeName":"",
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -193,7 +238,7 @@ class _HomeState extends State<Home> {
                   height: MediaQuery.sizeOf(context).height*0.235,
                   child: GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 8,
+                      itemCount: menuItems.length,
                       shrinkWrap: true,
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 4,
@@ -203,9 +248,12 @@ class _HomeState extends State<Home> {
                       itemBuilder:(context,index){
                         return GestureDetector(
                           onTap: (){
-                            GoRouter.of(context).pushNamed("Gods");
+                            if(menuItems[index]["routeName"].toString().isEmpty){
+                              return;
+                            }
+                            GoRouter.of(context).pushNamed(menuItems[index]["routeName"]);
                           },
-                            child: menuItem(context,Icons.temple_hindu, "Mandir")
+                            child: menuItem(context,menuItems[index]["icon"], menuItems[index]["name"])
                         );
                       }
                   ),

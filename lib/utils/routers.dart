@@ -1,6 +1,8 @@
 import 'package:go_router/go_router.dart';
 import 'package:omshribhakti/screens/AllLiveDarshans.dart';
+import 'package:omshribhakti/screens/GodPlayList.dart';
 import 'package:omshribhakti/screens/Gods.dart';
+// import 'package:omshribhakti/screens/MusicPlayer.dart';
 import 'package:omshribhakti/screens/NavigationBarScreen.dart';
 import 'package:omshribhakti/screens/SongsByMonth.dart';
 import 'package:omshribhakti/screens/SplashScreen.dart';
@@ -31,4 +33,8 @@ final GoRouter routes = GoRouter(routes: [
       path: "/AllLiveDarshans",
       name: "AllLiveDarshans",
       builder: (context, state) => const AllLiveDarshans()),
+  GoRoute(
+      path: "/GodPlaylist/:id/:name",
+      name: "GodPlaylist",
+      builder: (context, state) =>  GodPlaylist(id: int.parse(state.pathParameters["id"]!), name: state.pathParameters["name"]!)),
 ]);

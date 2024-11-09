@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:omshribhakti/widgets/GodCard.dart';
 
 class Gods extends StatelessWidget {
@@ -9,9 +10,7 @@ class Gods extends StatelessWidget {
     return Scaffold(
 
       appBar: AppBar(
-
-        title: Text("Gods",
-        ),
+        title: Text("Gods"),
       ),
       body: GridView.builder(
           itemCount: 5,
@@ -21,7 +20,15 @@ class Gods extends StatelessWidget {
               mainAxisSpacing: 8
           ),
           itemBuilder: (context,index){
-            return godCard(name: index.toString(), image: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",);
+            return GestureDetector(
+              onTap: ()=>GoRouter.of(context).pushNamed("GodPlaylist",
+                pathParameters: {
+                  "id":index.toString(),
+                  "name":index.toString(),
+                }
+              ),
+                child: godCard(name: index.toString(), image: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",)
+            );
           }
       ),
     );

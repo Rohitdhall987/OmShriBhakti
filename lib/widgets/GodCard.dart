@@ -18,7 +18,7 @@ Widget godCard ({required String name ,required String image}){
           SizedBox(
             height: 8,
           ),
-          Text("$name Ji",style:const TextStyle(color: Colors.white),)
+          Text(name,style:const TextStyle(color: Colors.white),)
         ],
       )
   );

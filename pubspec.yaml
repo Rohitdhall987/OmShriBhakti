@@ -70,6 +70,7 @@ dependencies:
   flutter_riverpod: ^2.5.3
   google_fonts: ^6.2.1
   dio: ^5.7.0
+  font_awesome_flutter: ^10.8.0
 
 
 dependency_overrides:
