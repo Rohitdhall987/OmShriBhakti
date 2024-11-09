@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
     {
       "name":"Podcast",
       "icon":FontAwesomeIcons.podcast,
-      "routeName":"",
+      "routeName":"PodcastSeriesPage",
     },
     {
       "name":"Gods",
@@ -202,7 +202,9 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.only(left: 8.0),
                         child: SizedBox(
                             width: MediaQuery.sizeOf(context).width*0.6,
-                            child: liveDarshanCard()
+                            child: GestureDetector(
+                                onTap: ()=>GoRouter.of(context).pushNamed("VideoPlayer"),
+                                child: liveDarshanCard())
                         ),
                       );
                     }

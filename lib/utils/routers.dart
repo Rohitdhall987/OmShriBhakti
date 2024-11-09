@@ -4,6 +4,7 @@ import 'package:omshribhakti/screens/Articles/ArticleByMonth.dart';
 import 'package:omshribhakti/screens/GodPlayList.dart';
 import 'package:omshribhakti/screens/Gods.dart';
 import 'package:omshribhakti/screens/Mantra.dart';
+import 'package:omshribhakti/screens/Podcast/PodcastSeries.dart';
 import 'package:omshribhakti/screens/Songs/Music.dart';
 // import 'package:omshribhakti/screens/MusicPlayer.dart';
 import 'package:omshribhakti/screens/NavigationBarScreen.dart';
@@ -81,5 +82,10 @@ final GoRouter routes = GoRouter(routes: [
       path: "/VideoPlayer",
       name: "VideoPlayer",
       builder: (context,state)=> const VideoPlayer()
+  ),
+  GoRoute(
+      path: "/PodcastSeriesPage",
+      name: "PodcastSeriesPage",
+      builder: (context,state)=> const PodcastSeriesPage()
   ),
 ]);

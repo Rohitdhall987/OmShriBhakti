@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 // import 'package:go_router/go_router.dart';
 import 'package:omshribhakti/widgets/ThumbnailCard.dart';
 
@@ -22,7 +23,9 @@ class AllLiveDarshans extends StatelessWidget {
             }
             return Padding(
               padding: const EdgeInsets.all(8.0),
-              child: thumbnailCard(MediaQuery.sizeOf(context).height *0.3, MediaQuery.sizeOf(context).width, "title dd s dfr df dh fdf fg h", "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"),
+              child: GestureDetector(
+                  onTap: ()=>GoRouter.of(context).pushNamed("VideoPlayer"),
+                  child: thumbnailCard(MediaQuery.sizeOf(context).height *0.3, MediaQuery.sizeOf(context).width, "title dd s dfr df dh fdf fg h", "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png")),
             );
           }
       ),
