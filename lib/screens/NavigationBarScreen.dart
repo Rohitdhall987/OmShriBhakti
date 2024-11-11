@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:omshribhakti/provider/Navigation_Provider.dart';
+import 'package:omshribhakti/provider/music_player_provider.dart';
 import 'package:omshribhakti/screens/Articles/Articles.dart';
 import 'package:omshribhakti/screens/Home.dart';
+import 'package:omshribhakti/screens/Players/MiniPlayer.dart';
 import 'package:omshribhakti/screens/Video.dart';
 import 'package:omshribhakti/widgets/bottom_navigation_bar.dart';
 
@@ -45,7 +47,20 @@ class NavigationBarScreen extends ConsumerWidget {
             children: [
               SizedBox(
                 height: MediaQuery.sizeOf(context).height - 63,
-                child: tabScreens[index],
+                child: Column(
+                  children: [
+                    Expanded(child: tabScreens[index]),
+                    Consumer(
+                      builder: (context, ref, child) {
+                        final player = ref.watch(playerProvider);
+                        print("building");
+                        print(player.isPlaying.toString() + " playing");
+                          return player.isPlaying ? const MiniPlayer() : const SizedBox.shrink();
+
+                      },
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

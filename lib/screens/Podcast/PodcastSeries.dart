@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:omshribhakti/provider/music_player_provider.dart';
 import 'package:omshribhakti/widgets/CachedNetworkImage.dart';
 
 class PodcastSeriesPage extends StatefulWidget {
@@ -45,62 +47,65 @@ class _PodcastSeriesPageState extends State<PodcastSeriesPage> {
                 final podcast = podcastList[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4),
-                  child: GestureDetector(
-                    onTap: () {
-                      GoRouter.of(context).pushNamed("SanatanPodcast", pathParameters: {
-                        'id': podcast["id"]!,
-                      });
-                    },
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Stack(
-                        alignment: Alignment.bottomRight,
-                        children: [
-                          Container(
-                            height: 190,
-                            width: MediaQuery.of(context).size.width,
-                            child: cachedNetworkImage(podcast["image"]!, BoxFit.fitWidth),
-                          ),
-                          Container(
-                            height: 190,
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.black54,
-                                  Colors.transparent,
-                                  Colors.transparent,
-                                  Colors.black54,
-                                ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                stops: [0.0, 0.3, 0.7, 1],
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Icon(Icons.headphones, color: Colors.white),
-                                  SizedBox(width: 4),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width / 1.3,
-                                    child: Text(
-                                      podcast["title"]!,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(color: Colors.white, fontSize: 16),
+                  child: Consumer(
+                      builder: (context,ref,child){
+                        final player=ref.watch(playerProvider);
+                        return GestureDetector(
+                          onTap: () {
+                            player.play("song");
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Stack(
+                              alignment: Alignment.bottomRight,
+                              children: [
+                                Container(
+                                  height: 190,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: cachedNetworkImage(podcast["image"]!, BoxFit.fitWidth),
+                                ),
+                                Container(
+                                  height: 190,
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Colors.black54,
+                                        Colors.transparent,
+                                        Colors.transparent,
+                                        Colors.black54,
+                                      ],
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      stops: [0.0, 0.3, 0.7, 1],
                                     ),
                                   ),
-                                  SizedBox(width: 4),
-                                  Icon(Icons.share, color: Colors.white),
-                                ],
-                              ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        Icon(Icons.headphones, color: Colors.white),
+                                        SizedBox(width: 4),
+                                        Container(
+                                          width: MediaQuery.of(context).size.width / 1.3,
+                                          child: Text(
+                                            podcast["title"]!,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(color: Colors.white, fontSize: 16),
+                                          ),
+                                        ),
+                                        SizedBox(width: 4),
+                                        Icon(Icons.share, color: Colors.white),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
+                        );
+                      }
                   ),
                 );
               },
