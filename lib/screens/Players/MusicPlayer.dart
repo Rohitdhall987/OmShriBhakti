@@ -1,109 +1,117 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:omshribhakti/utils/Colors.dart';
+import 'package:omshribhakti/widgets/CachedNetworkImage.dart';
 
-class MusicPlayerUI extends StatefulWidget {
-  const MusicPlayerUI({super.key});
-
+class MusicPlayerPage extends ConsumerWidget {
+  const MusicPlayerPage({super.key});
   @override
-  _MusicPlayerUIState createState() => _MusicPlayerUIState();
-}
-
-class _MusicPlayerUIState extends State<MusicPlayerUI> {
-  double _progress = 0.6; // Initial progress (60%)
-
-  void _updateProgress(Offset localPosition) {
-    // Define the center of the widget (116,116 is half of 232 size of progress indicator)
-    final center = Offset(116, 116);
-
-    final dx = localPosition.dx - center.dx;
-    final dy = localPosition.dy - center.dy;
-
-    // Calculate the angle and convert it to progress (percentage of 2 * pi)
-    double angle = atan2(dy, dx);
-    if (angle < 0) angle += 2 * pi; // Ensure angle is positive
-
-    setState(() {
-      _progress = angle / (2 * pi); // Update progress based on angle
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    double handleAngle = 2 * pi * _progress; // Calculate handle position based on progress
+  Widget build(BuildContext context, WidgetRef ref) {
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: GestureDetector(
-          onPanUpdate: (details) {
-            // Convert global position to local position within the widget
-            RenderBox box = context.findRenderObject() as RenderBox;
-            Offset localPosition = box.globalToLocal(details.globalPosition);
-            _updateProgress(localPosition);
-          },
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              // Padding around the Image
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Container(
-                  width: 200,
-                  height: 200,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: NetworkImage("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"),
-                      fit: BoxFit.cover,
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 20),
+            SizedBox(
+              height: 250,
+              width: 250,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: cachedNetworkImage("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",BoxFit.fitHeight),
+              ),
+            ),
+            const SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
+                children: [
+                  Expanded(child: Text("musicPlayer.songName",
+                    style: TextStyle(
+                      color: Colors.white54
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
-                        spreadRadius: 5,
-                        blurRadius: 20,
-                        offset: Offset(0, 10), // Oval shadow effect
-                      ),
-                    ],
-                  ),
-                ),
+                  )),
+                ],
               ),
-              // Circular Progress Indicator with padding
-              SizedBox(
-                width: 232, // Image size + padding
-                height: 232,
-                child: CircularProgressIndicator(
-                  value: _progress,
-                  strokeWidth: 8,
-                  backgroundColor: Colors.grey.shade800,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blueAccent),
-                ),
+            ),
+            Slider.adaptive(
+              thumbColor: AppTheme.primary,
+              activeColor: AppTheme.primary,
+              value: 50.0,
+              max: 100.0,
+              onChanged: (value) {
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(_formatDuration(Duration(minutes: 3)),
+                    style: TextStyle(
+                        color: Colors.white54
+                    ),),
+                  Text(_formatDuration(Duration(minutes: 6)),
+                    style: TextStyle(
+                        color: Colors.white54
+                    ),),
+                ],
               ),
-              // Circular Handle
-              Transform.translate(
-                offset: Offset(
-                  108 * cos(handleAngle), // Radius minus padding for the handle
-                  108 * sin(handleAngle),
-                ),
-                child: Container(
-                  width: 16,
-                  height: 16,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                IconButton(
+                  onPressed: (){},
+                  icon: Icon(
+                    Icons.shuffle,
                     color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 2,
-                        blurRadius: 4,
-                      ),
-                    ],
                   ),
                 ),
-              ),
-            ],
-          ),
+                IconButton(
+                  onPressed: (){},
+                  icon: const Icon(Icons.fast_rewind, color: Colors.white),
+                ),
+                Container(
+                  height: 70,
+                  width: 70,
+                  decoration: BoxDecoration(
+                    color: AppTheme.primary,
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Center(
+                    child: GestureDetector(
+                      child: Icon(
+                        Icons.play_arrow ,
+                        color: Colors.white,
+                        size: 40,
+                      ),
+                    ),
+                  ),
+                ),
+                IconButton(
+                  onPressed: (){},
+                  icon: const Icon(Icons.fast_forward, color: Colors.white),
+                ),
+                IconButton(
+                  onPressed:(){},
+                  icon: Icon(
+                    Icons.repeat,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  String _formatDuration(Duration duration) {
+    String minutes = duration.inMinutes.toString().padLeft(2, '0');
+    String seconds = (duration.inSeconds % 60).toString().padLeft(2, '0');
+    return "$minutes:$seconds";
   }
 }

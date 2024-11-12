@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:omshribhakti/utils/Colors.dart';
 import 'package:omshribhakti/widgets/ThumbnailCard.dart';
 
@@ -35,7 +36,10 @@ class SongsByMonth extends StatelessWidget {
                         itemBuilder: (context,index){
                           return Padding(
                             padding: const EdgeInsets.only(right: 8.0),
-                            child: thumbnailCard(MediaQuery.sizeOf(context).height*0.4, MediaQuery.sizeOf(context).width*0.7, "title", "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"),
+                            child: GestureDetector(
+                              onTap: ()=>GoRouter.of(context).pushNamed("MusicPlayerPage"),
+                                child: thumbnailCard(MediaQuery.sizeOf(context).height*0.4, MediaQuery.sizeOf(context).width*0.7, "title", "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png")
+                            ),
                           );
                         },
                     ),
