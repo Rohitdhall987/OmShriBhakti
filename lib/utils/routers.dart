@@ -8,6 +8,7 @@ import 'package:omshribhakti/screens/Gods.dart';
 import 'package:omshribhakti/screens/Mantra.dart';
 import 'package:omshribhakti/screens/Players/MusicPlayer.dart';
 import 'package:omshribhakti/screens/Podcast/PodcastSeries.dart';
+import 'package:omshribhakti/screens/Podcast/SingleSeries.dart';
 import 'package:omshribhakti/screens/Songs/Music.dart';
 import 'package:omshribhakti/screens/NavigationBarScreen.dart';
 import 'package:omshribhakti/screens/Players/VideoPlayer.dart';
@@ -99,6 +100,11 @@ GoRouter route(){
             path: "/PodcastSeriesPage",
             name: "PodcastSeriesPage",
             builder: (context,state)=> const PodcastSeriesPage()
+        ),
+        GoRoute(
+            path: "/SingleSeries",
+            name: "SingleSeries",
+            builder: (context,state)=> const SingleSeries()
         ),
       ]);
   return routes;

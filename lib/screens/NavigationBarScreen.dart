@@ -6,6 +6,7 @@ import 'package:omshribhakti/screens/Articles/Articles.dart';
 import 'package:omshribhakti/screens/Home.dart';
 import 'package:omshribhakti/screens/Players/MiniPlayer.dart';
 import 'package:omshribhakti/screens/Video.dart';
+import 'package:omshribhakti/screens/ecom/EcomHome.dart';
 import 'package:omshribhakti/widgets/bottom_navigation_bar.dart';
 
 class NavigationBarScreen extends ConsumerWidget {
@@ -29,7 +30,7 @@ class NavigationBarScreen extends ConsumerWidget {
     final tabScreens = [
       const Home(),
       const Videos(),
-      const Placeholder(),
+      const EcomHome(),
       const Articles(),
       const Placeholder(),
     ];

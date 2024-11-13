@@ -47,12 +47,9 @@ class _PodcastSeriesPageState extends State<PodcastSeriesPage> {
                 final podcast = podcastList[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4),
-                  child: Consumer(
-                      builder: (context,ref,child){
-                        final player=ref.watch(playerProvider);
-                        return GestureDetector(
+                  child:  GestureDetector(
                           onTap: () {
-                            player.play("song");
+                            GoRouter.of(context).pushNamed("SingleSeries");
                           },
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
@@ -104,9 +101,7 @@ class _PodcastSeriesPageState extends State<PodcastSeriesPage> {
                               ],
                             ),
                           ),
-                        );
-                      }
-                  ),
+                        )
                 );
               },
             ),
