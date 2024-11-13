@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:omshribhakti/screens/AllLiveDarshans.dart';
 import 'package:omshribhakti/screens/Articles/ArticleByMonth.dart';
+import 'package:omshribhakti/screens/Articles/ArticleSeries.dart';
+import 'package:omshribhakti/screens/Articles/ReadArticle.dart';
 import 'package:omshribhakti/screens/GodPlayList.dart';
 import 'package:omshribhakti/screens/Gods.dart';
 import 'package:omshribhakti/screens/Mantra.dart';
@@ -105,6 +107,16 @@ GoRouter route(){
             path: "/SingleSeries",
             name: "SingleSeries",
             builder: (context,state)=> const SingleSeries()
+        ),
+        GoRoute(
+            path: "/ArticleSeries",
+            name: "ArticleSeries",
+            builder: (context,state)=> const ArticleSeries()
+        ),
+            GoRoute(
+            path: "/ReadArticle",
+            name: "ReadArticle",
+            builder: (context,state)=> const ReadArticle()
         ),
       ]);
   return routes;
