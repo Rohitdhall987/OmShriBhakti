@@ -11,13 +11,15 @@ import 'package:omshribhakti/screens/Mantra.dart';
 import 'package:omshribhakti/screens/Players/MusicPlayer.dart';
 import 'package:omshribhakti/screens/Podcast/PodcastSeries.dart';
 import 'package:omshribhakti/screens/Podcast/SingleSeries.dart';
-import 'package:omshribhakti/screens/Songs/Music.dart';
+import 'package:omshribhakti/screens/Songs/Song.dart';
 import 'package:omshribhakti/screens/NavigationBarScreen.dart';
 import 'package:omshribhakti/screens/Players/VideoPlayer.dart';
+import 'package:omshribhakti/screens/Songs/SongSeries.dart';
 import 'package:omshribhakti/screens/Songs/SongsByMonth.dart';
 import 'package:omshribhakti/screens/SplashScreen.dart';
 import 'package:omshribhakti/screens/UpdateAppPage.dart';
 import 'package:omshribhakti/screens/Web/Web.dart';
+import 'package:omshribhakti/screens/ecom/ByCategory.dart';
 import 'package:omshribhakti/screens/geeta/GeetaAdhyaya.dart';
 import 'package:omshribhakti/screens/geeta/ReadShloak.dart';
 import 'package:omshribhakti/screens/geeta/Shloak.dart';
@@ -113,10 +115,20 @@ GoRouter route(){
             name: "ArticleSeries",
             builder: (context,state)=> const ArticleSeries()
         ),
-            GoRoute(
+        GoRoute(
             path: "/ReadArticle",
             name: "ReadArticle",
             builder: (context,state)=> const ReadArticle()
+        ),
+        GoRoute(
+            path: "/ProductByCategory",
+            name: "ProductByCategory",
+            builder: (context,state)=> const ProductByCategory()
+        ),
+        GoRoute(
+            path: "/SongSeries",
+            name: "SongSeries",
+            builder: (context,state)=> const SongSeries()
         ),
       ]);
   return routes;

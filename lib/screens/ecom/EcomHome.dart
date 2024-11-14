@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:omshribhakti/widgets/CachedNetworkImage.dart';
 import 'package:omshribhakti/widgets/trendingProduct.dart';
 
@@ -38,7 +39,12 @@ class EcomHome extends StatelessWidget {
                           width: 80,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(100),
-                              child: cachedNetworkImage("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", BoxFit.fitHeight)
+                              child: GestureDetector(
+                                onTap: (){
+                                  GoRouter.of(context).pushNamed("ProductByCategory");
+                                },
+                                  child: cachedNetworkImage("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", BoxFit.fitHeight)
+                              )
                           )
                       ),
                     );

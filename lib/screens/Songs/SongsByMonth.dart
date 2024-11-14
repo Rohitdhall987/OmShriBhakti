@@ -75,7 +75,10 @@ class SongsByMonth extends StatelessWidget {
                     itemBuilder: (context,index){
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: thumbnailCard(MediaQuery.sizeOf(context).height*0.3, MediaQuery.sizeOf(context).width, "title", "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"),
+                        child: GestureDetector(
+                          onTap: ()=>GoRouter.of(context).pushNamed("SongSeries"),
+                            child: thumbnailCard(MediaQuery.sizeOf(context).height*0.3, MediaQuery.sizeOf(context).width, "title", "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png")
+                        ),
                       );
                     },
                   ),
