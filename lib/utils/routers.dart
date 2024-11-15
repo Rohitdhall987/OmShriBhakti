@@ -20,6 +20,7 @@ import 'package:omshribhakti/screens/SplashScreen.dart';
 import 'package:omshribhakti/screens/UpdateAppPage.dart';
 import 'package:omshribhakti/screens/Web/Web.dart';
 import 'package:omshribhakti/screens/ecom/ByCategory.dart';
+import 'package:omshribhakti/screens/ecom/ProductDetails.dart';
 import 'package:omshribhakti/screens/geeta/GeetaAdhyaya.dart';
 import 'package:omshribhakti/screens/geeta/ReadShloak.dart';
 import 'package:omshribhakti/screens/geeta/Shloak.dart';
@@ -129,6 +130,11 @@ GoRouter route(){
             path: "/SongSeries",
             name: "SongSeries",
             builder: (context,state)=> const SongSeries()
+        ),
+        GoRoute(
+            path: "/ProductDetails",
+            name: "ProductDetails",
+            builder: (context,state)=> const ProductDetails()
         ),
       ]);
   return routes;

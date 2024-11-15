@@ -72,7 +72,10 @@ class EcomHome extends StatelessWidget {
                 itemCount: 5,
                   gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisSpacing: 16,crossAxisSpacing: 16),
                   itemBuilder: (context,index){
-                    return trendingProduct("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "item $index");
+                    return GestureDetector(
+                        onTap: ()=>GoRouter.of(context).pushNamed("ProductDetails"),
+                        child: trendingProduct("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "item $index")
+                    );
                   }
               )
             ],
