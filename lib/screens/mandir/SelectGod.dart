@@ -21,7 +21,7 @@ class SelectGod extends StatelessWidget {
           ),
           itemBuilder: (context,index){
             return GestureDetector(
-                onTap: ()=>GoRouter.of(context).pushNamed(""),
+                onTap: ()=>GoRouter.of(context).pushNamed("Mandir"),
                 child: godCard(name: index.toString(), image: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",)
             );
           }

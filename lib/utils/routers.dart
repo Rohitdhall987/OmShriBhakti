@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:omshribhakti/screens/AllLiveDarshans.dart';
 import 'package:omshribhakti/screens/Articles/ArticleByMonth.dart';
@@ -24,6 +22,7 @@ import 'package:omshribhakti/screens/ecom/ProductDetails.dart';
 import 'package:omshribhakti/screens/geeta/GeetaAdhyaya.dart';
 import 'package:omshribhakti/screens/geeta/ReadShloak.dart';
 import 'package:omshribhakti/screens/geeta/Shloak.dart';
+import 'package:omshribhakti/screens/mandir/Mandir.dart';
 import 'package:omshribhakti/screens/mandir/SelectGod.dart';
 import 'package:omshribhakti/utils/Observer.dart';
 
@@ -140,6 +139,11 @@ GoRouter route(){
             path: "/SelectGod",
             name: "SelectGod",
             builder: (context,state)=> const SelectGod()
+        ),
+        GoRoute(
+            path: "/Mandir",
+            name: "Mandir",
+            builder: (context,state)=> const Mandir()
         ),
       ]);
   return routes;
