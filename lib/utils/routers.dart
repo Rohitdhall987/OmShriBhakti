@@ -24,10 +24,10 @@ import 'package:omshribhakti/screens/ecom/ProductDetails.dart';
 import 'package:omshribhakti/screens/geeta/GeetaAdhyaya.dart';
 import 'package:omshribhakti/screens/geeta/ReadShloak.dart';
 import 'package:omshribhakti/screens/geeta/Shloak.dart';
+import 'package:omshribhakti/screens/mandir/SelectGod.dart';
 import 'package:omshribhakti/utils/Observer.dart';
 
 GoRouter route(){
-  final container = ProviderContainer();
   final GoRouter routes = GoRouter(
       observers: [GoRouterObserver()],
       routes: [
@@ -135,6 +135,11 @@ GoRouter route(){
             path: "/ProductDetails",
             name: "ProductDetails",
             builder: (context,state)=> const ProductDetails()
+        ),
+        GoRoute(
+            path: "/SelectGod",
+            name: "SelectGod",
+            builder: (context,state)=> const SelectGod()
         ),
       ]);
   return routes;

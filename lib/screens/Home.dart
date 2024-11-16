@@ -46,7 +46,7 @@ class _HomeState extends State<Home> {
     {
       "name":"Mandir",
       "icon":FontAwesomeIcons.gopuram,
-      "routeName":"",
+      "routeName":"SelectGod",
     },
     {
       "name":"Podcast",
