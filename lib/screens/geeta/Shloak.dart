@@ -33,7 +33,10 @@ class GeetaShlok extends StatelessWidget {
             itemBuilder: (context,index){
 
               return GestureDetector(
-                onTap: ()=>GoRouter.of(context).pushNamed("ReadShloak"),
+                onTap: ()=>GoRouter.of(context).pushNamed("ReadShloak",pathParameters: {
+                  "adhyaya":adhaya.toString(),
+                  "shlokaNumber":(index +1).toString(),
+                }),
                 child: themeContainer(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

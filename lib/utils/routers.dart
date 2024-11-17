@@ -71,9 +71,9 @@ GoRouter route(){
             name: "GeetaShlok",
             builder: (context, state) => GeetaShlok(adhaya:int.parse( state.pathParameters["adhyaya"]!), shloka: int.parse( state.pathParameters["shloka"]!))),
         GoRoute(
-            path: "/ReadShloak",
+            path: "/ReadShloak/:adhyaya/:shlokaNumber",
             name: "ReadShloak",
-            builder: (context,state)=> const ReadShloak()
+            builder: (context,state)=>  ReadShloak(adhyaya: int.parse( state.pathParameters["adhyaya"]!), shlokaNumber: int.parse( state.pathParameters["shlokaNumber"]!))
         ),
         GoRoute(
             path: "/MantraPage",

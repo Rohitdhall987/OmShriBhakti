@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:omshribhakti/services/version_services.dart';
+import 'package:omshribhakti/utils/ImageCacheManger.dart';
 import 'package:omshribhakti/utils/colors.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
@@ -12,13 +13,16 @@ class SplashScreen extends ConsumerStatefulWidget {
 }
 
 class _SplashScreenState extends ConsumerState<SplashScreen> {
+  ImageCacheManager cacheManager =ImageCacheManager();
   @override
   void initState() {
     super.initState();
     checkVersion();
+
   }
 
   void checkVersion() async {
+  //   await cacheManager.clear();
     // await VersionService.getLatestVersion(ref);
     if ( await VersionService.isUpdated(ref)) {
       GoRouter.of(context).goNamed("NavigationBarScreen");
