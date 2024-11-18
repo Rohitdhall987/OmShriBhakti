@@ -8,7 +8,7 @@ final Map<String, ImageProvider> _cachedImageProviders = {}; // Cache for loaded
 
 Widget cachedNetworkImage(String url, BoxFit fit) {
 
-  return Image.network(url,fit: fit,);
+  // return Image.network(url,fit: fit,);
 
   ///TODO: image cache management
   final ImageCacheManager _cacheManager = ImageCacheManager();
@@ -19,6 +19,13 @@ Widget cachedNetworkImage(String url, BoxFit fit) {
     return Image(
       image: _cachedImageProviders[url]!,
       fit: fit,
+      errorBuilder: (context,image,stackTrack){
+        print(image.toString());
+        print(stackTrack.toString());
+        return const Center(
+          child: Icon(Icons.error),
+        );
+      },
     );
   }
 
@@ -65,7 +72,7 @@ Widget cachedNetworkImage(String url, BoxFit fit) {
 
 Future<ImageProvider> getImageProvider(String url) async {
 
-  return NetworkImage(url);
+  // return NetworkImage(url);
 
   final ImageCacheManager cacheManager = ImageCacheManager();
   final file = await cacheManager.getImage(url);

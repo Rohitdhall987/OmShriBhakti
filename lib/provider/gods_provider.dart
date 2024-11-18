@@ -61,15 +61,6 @@ class GodsNotifier extends StateNotifier<GodsState> {
       rethrow;
     }
   }
-
-// // Method to reset the state of the provider
-//   void reset() {
-//     print("callingggg");
-//     state = VideoState(videos: [], isLoading: false, hasMore: true); // Reset the state to its initial state
-//   }
-
-
-
 }
 
 // Riverpod provider for the VideoNotifier
