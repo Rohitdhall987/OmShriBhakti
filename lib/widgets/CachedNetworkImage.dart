@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:omshribhakti/utils/Colors.dart';
 import 'package:omshribhakti/utils/ImageCacheManger.dart';
@@ -22,9 +21,7 @@ Widget cachedNetworkImage(String url, BoxFit fit) {
       errorBuilder: (context,image,stackTrack){
         print(image.toString());
         print(stackTrack.toString());
-        return const Center(
-          child: Icon(Icons.error),
-        );
+        return Image.network(url);
       },
     );
   }
@@ -43,6 +40,11 @@ Widget cachedNetworkImage(String url, BoxFit fit) {
             return Image(
               image: imageProvider,
               fit: fit,
+              errorBuilder: (context,image,stackTrack){
+                print(image.toString());
+                print(stackTrack.toString());
+                return Image.network(url);
+              },
             );
           } else {
             print("Invalid cached image for URL: $url");
@@ -58,6 +60,11 @@ Widget cachedNetworkImage(String url, BoxFit fit) {
         return Image(
           image: imageProvider,
           fit: fit,
+          errorBuilder: (context,image,stackTrack){
+            print(image.toString());
+            print(stackTrack.toString());
+            return Image.network(url);
+          },
         );
       }
 
