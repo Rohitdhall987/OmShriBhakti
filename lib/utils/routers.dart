@@ -106,9 +106,9 @@ GoRouter route(){
             builder: (context,state)=> const PodcastSeriesPage()
         ),
         GoRoute(
-            path: "/SingleSeries",
+            path: "/SingleSeries/:id",
             name: "SingleSeries",
-            builder: (context,state)=> const SingleSeries()
+            builder: (context,state)=>  SingleSeries(id: int.parse(state.pathParameters["id"]!),)
         ),
         GoRoute(
             path: "/ArticleSeries",

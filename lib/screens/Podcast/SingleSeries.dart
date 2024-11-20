@@ -1,22 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:omshribhakti/provider/podcast_series_provider.dart';
 import 'package:omshribhakti/widgets/CachedNetworkImage.dart';
 
-class SingleSeries extends StatelessWidget {
-  const SingleSeries({super.key});
+class SingleSeries extends ConsumerStatefulWidget {
+  final int id;
+  const SingleSeries({super.key,required this.id});
+
+  @override
+  ConsumerState<SingleSeries> createState() => _SingleSeriesState();
+}
+
+class _SingleSeriesState extends ConsumerState<SingleSeries> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(singleSeriesProvider.notifier).fetchSingleSeries(widget.id);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(singleSeriesProvider);
+    final podcast=state.podcast!;
     return Scaffold(
-      body: SingleChildScrollView(
+      body: state.isLoading?
+          const Center(
+            child: CircularProgressIndicator(),
+          )
+      :SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            // Dummy image banner
             SizedBox(
               height: 200,
               width: double.infinity,
-              child: cachedNetworkImage("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", BoxFit.fitWidth)
+              child: cachedNetworkImage(podcast.audio.image, BoxFit.fitWidth)
             ),
 
             // Song title and share button
@@ -25,9 +46,9 @@ class SingleSeries extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    "Sample Song Title",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.white),
+                   Text(
+                    podcast.audio.title,
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.white),
                   ),
                   GestureDetector(
                     onTap: () {
@@ -46,10 +67,10 @@ class SingleSeries extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
-                children: const [
+                children:  [
                   Text(
-                    "Total parts: 10",
-                    style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
+                    "Total parts ${podcast.audioSeason.length}",
+                    style:const TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
                   ),
                 ],
               ),
@@ -58,7 +79,7 @@ class SingleSeries extends StatelessWidget {
             ListView.builder(
                 physics:const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 10,
+                itemCount: podcast.audioSeason.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -68,7 +89,7 @@ class SingleSeries extends StatelessWidget {
                       },
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: cachedNetworkImage("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", BoxFit.fitHeight)
+                        child: cachedNetworkImage(podcast.audioSeason[index].image, BoxFit.fitHeight)
                       ),
                     ),
                   );

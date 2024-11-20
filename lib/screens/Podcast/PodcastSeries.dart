@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:omshribhakti/provider/music_player_provider.dart';
 import 'package:omshribhakti/provider/podcast_provider.dart';
-import 'package:omshribhakti/widgets/CachedNetworkImage.dart';
 import 'package:omshribhakti/widgets/ThumbnailCard.dart';
 
 class PodcastSeriesPage extends ConsumerStatefulWidget {
@@ -72,7 +70,7 @@ class _PodcastSeriesPageState extends ConsumerState<PodcastSeriesPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text(
+        title:const Text(
           "Podcast",
         ),
       ),
@@ -99,7 +97,11 @@ class _PodcastSeriesPageState extends ConsumerState<PodcastSeriesPage> {
             padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4),
             child:  GestureDetector(
                     onTap: () {
-                      GoRouter.of(context).pushNamed("SingleSeries");
+                      GoRouter.of(context).pushNamed("SingleSeries",
+                        pathParameters: {
+                          "id":podcast.id.toString()
+                        }
+                      );
                     },
                     child: thumbnailCard(MediaQuery.of(context).size.height*0.3, MediaQuery.of(context).size.width, podcast.title, podcast.image),
                     // child: ClipRRect(
