@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:omshribhakti/app.dart';
 import 'package:omshribhakti/screens/AllLiveDarshans.dart';
 import 'package:omshribhakti/screens/Articles/ArticleByMonth.dart';
 import 'package:omshribhakti/screens/Articles/ArticleSeries.dart';
@@ -26,8 +28,13 @@ import 'package:omshribhakti/screens/mandir/Mandir.dart';
 import 'package:omshribhakti/screens/mandir/SelectGod.dart';
 import 'package:omshribhakti/utils/Observer.dart';
 
+
+
+
+
 GoRouter route(){
   final GoRouter routes = GoRouter(
+        navigatorKey: rootNavigatorKey,
       observers: [GoRouterObserver()],
       routes: [
         GoRoute(

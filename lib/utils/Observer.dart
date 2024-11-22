@@ -7,18 +7,19 @@ class GoRouterObserver extends NavigatorObserver {
 
 
 
-
   @override
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final player = ProviderScope.containerOf(route.navigator!.context).read(playerProvider);
 
       if(player.isPlaying){
-        print("here");
-        if(route.settings.name=="NavigationBarScreen"  ){
-          player.hide();
+        // print("here");
+        if(route.settings.name=="NavigationBarScreen"  ||route.settings.name=="MusicPlayerPage"){
+          print("hinding---------");
+          ProviderScope.containerOf(route.navigator!.context).read(playerProvider.notifier).hide();
         }else{
-          player.display();
+          print("displaying --------");
+          ProviderScope.containerOf(route.navigator!.context).read(playerProvider.notifier).display();
         }
       }
     });
@@ -30,12 +31,16 @@ class GoRouterObserver extends NavigatorObserver {
   void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final player = ProviderScope.containerOf(route.navigator!.context).read(playerProvider);
+      print("isssss ppplaayiinggg ${player.isPlaying}");
+
       if(player.isPlaying){
-        print("here");
-        if(previousRoute!.settings.name=="NavigationBarScreen"){
-          player.hide();
+        // print("here");
+        if(previousRoute!.settings.name=="NavigationBarScreen"||previousRoute.settings.name=="MusicPlayerPage"){
+           print("hinding---------");
+          ProviderScope.containerOf(route.navigator!.context).read(playerProvider.notifier).hide();
         }else{
-          player.display();
+          print("displaying --------");
+          ProviderScope.containerOf(route.navigator!.context).read(playerProvider.notifier).display();
         }
       }
     });

@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:omshribhakti/utils/Colors.dart';
 import 'package:omshribhakti/widgets/CachedNetworkImage.dart';
+import 'package:omshribhakti/provider/music_player_provider.dart'; // Import the provider
 
 class MusicPlayerPage extends ConsumerWidget {
   const MusicPlayerPage({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Get the player state from the provider
+    final playerState = ref.watch(playerProvider);
 
     return Scaffold(
       body: SafeArea(
@@ -19,7 +23,10 @@ class MusicPlayerPage extends ConsumerWidget {
               width: 250,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: cachedNetworkImage("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",BoxFit.fitHeight),
+                child: cachedNetworkImage(
+                  playerState.image, // Use the player's image
+                  BoxFit.fitHeight,
+                ),
               ),
             ),
             const SizedBox(height: 30),
@@ -27,20 +34,27 @@ class MusicPlayerPage extends ConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Row(
                 children: [
-                  Expanded(child: Text("musicPlayer.songName",
-                    style: TextStyle(
-                      color: Colors.white54
+                  Expanded(
+                    child: Text(
+                      playerState.songName, // Use the song name from the player state
+                      style: TextStyle(color: Colors.white54),
                     ),
-                  )),
+                  ),
                 ],
               ),
             ),
             Slider.adaptive(
               thumbColor: AppTheme.primary,
               activeColor: AppTheme.primary,
-              value: 50.0,
-              max: 100.0,
+              value: playerState.currentPosition.inSeconds.toDouble(), // Current position
+              max: playerState.totalDuration.inSeconds.toDouble(), // Total duration
               onChanged: (value) {
+                // Optionally update UI while dragging
+                ref.read(playerProvider.notifier).updateCurrentPosition(Duration(seconds: value.toInt()));
+              },
+              onChangeEnd: (value) {
+                // Seek to the new position when dragging ends
+                ref.read(playerProvider.notifier).seek(Duration(seconds: value.toInt()));
               },
             ),
             Padding(
@@ -48,14 +62,14 @@ class MusicPlayerPage extends ConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(_formatDuration(Duration(minutes: 3)),
-                    style: TextStyle(
-                        color: Colors.white54
-                    ),),
-                  Text(_formatDuration(Duration(minutes: 6)),
-                    style: TextStyle(
-                        color: Colors.white54
-                    ),),
+                  Text(
+                    _formatDuration(playerState.currentPosition),
+                    style: TextStyle(color: Colors.white54),
+                  ),
+                  Text(
+                    _formatDuration(playerState.totalDuration),
+                    style: TextStyle(color: Colors.white54),
+                  ),
                 ],
               ),
             ),
@@ -63,15 +77,21 @@ class MusicPlayerPage extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 IconButton(
-                  onPressed: (){},
+                  onPressed: () {
+                    // Shuffle action (toggle shuffle state)
+                    ref.read(playerProvider.notifier).toggleShuffle();
+                  },
                   icon: Icon(
                     Icons.shuffle,
-                    color: Colors.white,
+                    color:playerState.shuffle?AppTheme.primary: Colors.white,
                   ),
                 ),
                 IconButton(
-                  onPressed: (){},
-                  icon: const Icon(Icons.fast_rewind, color: Colors.white),
+                  onPressed: () {
+                    // Previous track action
+                    ref.read(playerProvider.notifier).playPrevious();
+                  },
+                  icon:  Icon(Icons.fast_rewind, color:ref.read(playerProvider.notifier).hasPrevious? Colors.white:Colors.grey),
                 ),
                 Container(
                   height: 70,
@@ -82,8 +102,16 @@ class MusicPlayerPage extends ConsumerWidget {
                   ),
                   child: Center(
                     child: GestureDetector(
+                      onTap: () {
+                        // Toggle play/pause based on current state
+                        if (!playerState.isPaused) {
+                          ref.read(playerProvider.notifier).pause();
+                        } else {
+                          ref.read(playerProvider.notifier).resume();
+                        }
+                      },
                       child: Icon(
-                        Icons.play_arrow ,
+                        !playerState.isPaused ? Icons.pause : Icons.play_arrow,
                         color: Colors.white,
                         size: 40,
                       ),
@@ -91,14 +119,20 @@ class MusicPlayerPage extends ConsumerWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: (){},
-                  icon: const Icon(Icons.fast_forward, color: Colors.white),
+                  onPressed: () {
+                    // Next track action
+                    ref.read(playerProvider.notifier).playNext();
+                  },
+                  icon: Icon(Icons.fast_forward, color:ref.read(playerProvider.notifier).hasNext? Colors.white:Colors.grey),
                 ),
                 IconButton(
-                  onPressed:(){},
+                  onPressed: () {
+                    // Repeat action (toggle repeat state)
+                    ref.read(playerProvider.notifier).toggleRepeat();
+                  },
                   icon: Icon(
                     Icons.repeat,
-                    color: Colors.white,
+                    color:playerState.shouldRepeat?AppTheme.primary: Colors.white,
                   ),
                 ),
               ],

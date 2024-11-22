@@ -8,14 +8,14 @@ class ImageCacheManager {
   /// Clear the image cache
   Future<void> clear() async {
     try {
-      print("Clearing image cache...");
+      //print("Clearing image cache...");
       final dir = await getApplicationDocumentsDirectory();
       final cacheDir = Directory(dir.path);
       if (cacheDir.existsSync()) {
         cacheDir.deleteSync(recursive: true);
       }
     } catch (e) {
-      print("Error clearing cache: $e");
+      //print("Error clearing cache: $e");
     }
   }
 
@@ -29,22 +29,22 @@ class ImageCacheManager {
 
       // Check if the file exists and is valid
       if (await file.exists() && isValidImage(file)) {
-        print("Image found in cache: $filePath");
+        //print("Image found in cache: $filePath");
         return file;
       }
 
       // Download the image
-      print("Downloading image: $url");
+      //print("Downloading image: $url");
       final response = await _dio.download(url, filePath);
       if (response.statusCode == 200 && await file.length() > 0 && isValidImage(file)) {
-        print("Image successfully downloaded: $filePath");
+        //print("Image successfully downloaded: $filePath");
         return file;
       } else {
-        print("Invalid or corrupted image downloaded: $filePath");
+        //print("Invalid or corrupted image downloaded: $filePath");
         file.deleteSync(); // Delete invalid file
       }
     } catch (e) {
-      print("Error loading image: $e");
+      //print("Error loading image: $e");
     }
     return null;
   }
@@ -55,7 +55,7 @@ class ImageCacheManager {
       final bytes = file.readAsBytesSync();
       return bytes.isNotEmpty;
     } catch (e) {
-      print("Error validating image: $e");
+      //print("Error validating image: $e");
       return false;
     }
   }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:omshribhakti/provider/music_player_provider.dart';
+import 'package:omshribhakti/screens/AllLiveDarshans.dart';
 import 'package:omshribhakti/screens/Players/MiniPlayer.dart';
-import 'package:omshribhakti/utils/Observer.dart';
 import 'package:omshribhakti/utils/colors.dart';
 import 'package:omshribhakti/utils/routers.dart';
 
@@ -42,6 +43,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
+final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
+
 class AppWithMiniPlayer extends StatelessWidget {
   final Widget child;
 
@@ -58,11 +61,16 @@ class AppWithMiniPlayer extends StatelessWidget {
           Consumer(
             builder: (context, ref, child) {
               final player = ref.watch(playerProvider);
-              print("building");
-              print((!player.isHidden).toString() + " hidden");
-              print(player.isPlaying.toString() + " playing");
+              // print("building again");
+              // print((!player.isHidden).toString() + " s d s hidden");
+              // print(player.isPlaying.toString() + " s ds playing");
               if (!player.isHidden) {
-                return player.isPlaying ? const MiniPlayer() : const SizedBox.shrink();
+                return player.isPlaying ? GestureDetector(
+                    onTap: (){
+                      GoRouter.of(rootNavigatorKey.currentContext!).pushNamed("MusicPlayerPage");
+                      //navigate to  page
+                    },
+                    child: const MiniPlayer()) : const SizedBox.shrink();
               } else {
                 return const SizedBox.shrink();
               }

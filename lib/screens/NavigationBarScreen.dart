@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:omshribhakti/provider/Navigation_Provider.dart';
 import 'package:omshribhakti/provider/music_player_provider.dart';
 import 'package:omshribhakti/screens/Articles/Articles.dart';
@@ -54,9 +55,13 @@ class NavigationBarScreen extends ConsumerWidget {
                     Consumer(
                       builder: (context, ref, child) {
                         final player = ref.watch(playerProvider);
-                        print("building");
-                        print(player.isPlaying.toString() + " playing");
-                          return player.isPlaying ? const MiniPlayer() : const SizedBox.shrink();
+                        // print("building");
+                        // print(player.isPlaying.toString() + " playing");
+                          return player.isPlaying ? GestureDetector(
+                            onTap: (){
+                              GoRouter.of(context).pushNamed("MusicPlayerPage");
+                            },
+                              child: const MiniPlayer()) : const SizedBox.shrink();
 
                       },
                     ),

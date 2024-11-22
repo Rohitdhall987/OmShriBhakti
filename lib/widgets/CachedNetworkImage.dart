@@ -14,13 +14,13 @@ Widget cachedNetworkImage(String url, BoxFit fit) {
 
   // Check if the image is already cached
   if (_cachedImageProviders.containsKey(url)) {
-    print("Cache hit for URL: $url");
+    //print("Cache hit for URL: $url");
     return Image(
       image: _cachedImageProviders[url]!,
       fit: fit,
       errorBuilder: (context,image,stackTrack){
-        print(image.toString());
-        print(stackTrack.toString());
+        //print(image.toString());
+        //print(stackTrack.toString());
         return Image.network(url);
       },
     );
@@ -34,35 +34,35 @@ Widget cachedNetworkImage(String url, BoxFit fit) {
         if (snapshot.hasData) {
           final file = snapshot.data!;
           if (_cacheManager.isValidImage(file)) {
-            print("Caching image for URL: $url");
+            //print("Caching image for URL: $url");
             final imageProvider = FileImage(file);
             _cachedImageProviders[url] = imageProvider;
             return Image(
               image: imageProvider,
               fit: fit,
               errorBuilder: (context,image,stackTrack){
-                print(image.toString());
-                print(stackTrack.toString());
+                //print(image.toString());
+                //print(stackTrack.toString());
                 return Image.network(url);
               },
             );
           } else {
-            print("Invalid cached image for URL: $url");
+            //print("Invalid cached image for URL: $url");
           }
         } else {
-          print("Image loading failed for URL: $url");
+          //print("Image loading failed for URL: $url");
         }
 
         // Fallback to NetworkImage if cache fails
-        print("Falling back to network image for URL: $url");
+        //print("Falling back to network image for URL: $url");
         final imageProvider = NetworkImage(url);
         _cachedImageProviders[url] = imageProvider;
         return Image(
           image: imageProvider,
           fit: fit,
           errorBuilder: (context,image,stackTrack){
-            print(image.toString());
-            print(stackTrack.toString());
+            //print(image.toString());
+            //print(stackTrack.toString());
             return Image.network(url);
           },
         );

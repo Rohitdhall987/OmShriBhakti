@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:omshribhakti/provider/music_player_provider.dart';
 import 'package:omshribhakti/provider/podcast_series_provider.dart';
 import 'package:omshribhakti/widgets/CachedNetworkImage.dart';
 
@@ -85,6 +86,9 @@ class _SingleSeriesState extends ConsumerState<SingleSeries> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: (){
+                        final playlist=podcast.audioSeason.map((podcast)=>{"url":podcast.audio,"name":podcast.title,"singer":"","image":podcast.image}).toList();
+                        ref.read(playerProvider.notifier).addSongs(playlist);
+                        ref.read(playerProvider.notifier).play(podcast.audioSeason[index].audio,songName: podcast.audioSeason[index].title,singer: "",imageUrl: podcast.audioSeason[index].image);
                         GoRouter.of(context).pushNamed("MusicPlayerPage");
                       },
                       child: ClipRRect(
