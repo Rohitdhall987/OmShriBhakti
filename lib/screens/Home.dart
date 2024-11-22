@@ -437,9 +437,9 @@ class _HomeState extends State<Home> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
-                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title", "subTitle"),
-                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title", "subTitle"),
-                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title", "subTitle"),
+                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title",),
+                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title",),
+                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title",),
                                 ],
                               ),
                               SizedBox(
@@ -512,10 +512,15 @@ class _HomeState extends State<Home> {
                                   )
                                 ],
                               ),
-                              Text("See All",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold
+                              GestureDetector(
+                                onTap: (){
+                                  GoRouter.of(context).pushNamed("QuotesAllCategory");
+                                },
+                                child: Text("See All",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold
+                                  ),
                                 ),
                               )
                             ],
@@ -528,9 +533,9 @@ class _HomeState extends State<Home> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
-                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title", "subTitle"),
-                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title", "subTitle"),
-                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title", "subTitle"),
+                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title", ),
+                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title", ),
+                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title", ),
                                 ],
                               ),
                               SizedBox(
@@ -543,6 +548,9 @@ class _HomeState extends State<Home> {
                     ),
                   )
                 ],
+              ),
+              const SizedBox(
+                height: 24,
               ),
             ],
           ),

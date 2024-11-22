@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:omshribhakti/widgets/CachedNetworkImage.dart';
 
-Widget quotesThumbnail(context,String image,title,subTitle){
+Widget quotesThumbnail(context,String image,title){
   double width=MediaQuery.sizeOf(context).width*0.275;
   return Stack(
     alignment: Alignment.center,
@@ -65,12 +65,12 @@ Widget quotesThumbnail(context,String image,title,subTitle){
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(subTitle,
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 12
-              ),
-            ),
+            // Text(subTitle,
+            //   style: TextStyle(
+            //     color: Colors.grey,
+            //     fontSize: 12
+            //   ),
+            // ),
 
           ],
         ),

@@ -11,6 +11,7 @@ import 'package:omshribhakti/screens/Mantra.dart';
 import 'package:omshribhakti/screens/Players/MusicPlayer.dart';
 import 'package:omshribhakti/screens/Podcast/PodcastSeries.dart';
 import 'package:omshribhakti/screens/Podcast/SingleSeries.dart';
+import 'package:omshribhakti/screens/Quotes/AllCategory.dart';
 import 'package:omshribhakti/screens/Songs/Song.dart';
 import 'package:omshribhakti/screens/NavigationBarScreen.dart';
 import 'package:omshribhakti/screens/Players/VideoPlayer.dart';
@@ -151,6 +152,11 @@ GoRouter route(){
             path: "/Mandir",
             name: "Mandir",
             builder: (context,state)=> const Mandir()
+        ),
+        GoRoute(
+            path: "/QuotesAllCategory",
+            name: "QuotesAllCategory",
+            builder: (context,state)=> const QuotesAllCategory()
         ),
       ]);
   return routes;
