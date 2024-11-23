@@ -12,6 +12,8 @@ import 'package:omshribhakti/screens/Players/MusicPlayer.dart';
 import 'package:omshribhakti/screens/Podcast/PodcastSeries.dart';
 import 'package:omshribhakti/screens/Podcast/SingleSeries.dart';
 import 'package:omshribhakti/screens/Quotes/AllCategory.dart';
+import 'package:omshribhakti/screens/Quotes/ImageEditor.dart';
+import 'package:omshribhakti/screens/Quotes/WithCategory.dart';
 import 'package:omshribhakti/screens/Songs/Song.dart';
 import 'package:omshribhakti/screens/NavigationBarScreen.dart';
 import 'package:omshribhakti/screens/Players/VideoPlayer.dart';
@@ -157,6 +159,16 @@ GoRouter route(){
             path: "/QuotesAllCategory",
             name: "QuotesAllCategory",
             builder: (context,state)=> const QuotesAllCategory()
+        ),
+        GoRoute(
+            path: "/QuotesWithCategory/:id",
+            name: "QuotesWithCategory",
+            builder: (context,state)=>  QuotesWithCategory(id: state.pathParameters["id"]!)
+        ),
+        GoRoute(
+            path: "/ImageEditor/:img",
+            name: "ImageEditor",
+            builder: (context,state)=>  ImageEditor(url: state.pathParameters["img"]!,)
         ),
       ]);
   return routes;

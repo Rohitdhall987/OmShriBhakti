@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:omshribhakti/provider/quotes_category_provider.dart';
 import 'package:omshribhakti/utils/Colors.dart';
 import 'package:omshribhakti/widgets/CachedNetworkImage.dart';
@@ -62,12 +63,11 @@ class _QuotesAllCategoryState extends ConsumerState<QuotesAllCategory> {
 
             return themeContainer(
               child: GestureDetector(
-                  // onTap: ()=>GoRouter.of(context).pushNamed("GodPlaylist",
-                  //     pathParameters: {
-                  //       "id":god.id.toString(),
-                  //       "name":god.name,
-                  //     }
-                  // ),
+                  onTap: ()=>GoRouter.of(context).pushNamed("QuotesWithCategory",
+                      pathParameters: {
+                        "id":category.id.toString(),
+                      }
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
