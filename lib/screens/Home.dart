@@ -433,10 +433,15 @@ class _HomeState extends State<Home> {
                                   )
                                 ],
                               ),
-                              Text("See All",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold
+                              GestureDetector(
+                                onTap: (){
+                                  GoRouter.of(context).pushNamed("AllYogaCategory");
+                                },
+                                child: Text("See All",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold
+                                  ),
                                 ),
                               )
                             ],

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:omshribhakti/app.dart';
 import 'package:omshribhakti/screens/AllLiveDarshans.dart';
@@ -22,6 +21,7 @@ import 'package:omshribhakti/screens/Songs/SongsByMonth.dart';
 import 'package:omshribhakti/screens/SplashScreen.dart';
 import 'package:omshribhakti/screens/UpdateAppPage.dart';
 import 'package:omshribhakti/screens/Web/Web.dart';
+import 'package:omshribhakti/screens/Yoga/all_yoga_category.dart';
 import 'package:omshribhakti/screens/ecom/ByCategory.dart';
 import 'package:omshribhakti/screens/ecom/ProductDetails.dart';
 import 'package:omshribhakti/screens/geeta/GeetaAdhyaya.dart';
@@ -163,12 +163,17 @@ GoRouter route(){
         GoRoute(
             path: "/QuotesWithCategory/:id",
             name: "QuotesWithCategory",
-            builder: (context,state)=>  QuotesWithCategory(id: state.pathParameters["id"]!)
+            builder: (context,state)=> QuotesWithCategory(id: state.pathParameters["id"]!)
         ),
         GoRoute(
             path: "/ImageEditor/:img",
             name: "ImageEditor",
-            builder: (context,state)=>  ImageEditor(url: state.pathParameters["img"]!,)
+            builder: (context,state)=> ImageEditor(url: state.pathParameters["img"]!,)
+        ),
+        GoRoute(
+            path: "/AllYogaCategory",
+            name: "AllYogaCategory",
+            builder: (context,state)=>const AllYogaCategory()
         ),
       ]);
   return routes;
