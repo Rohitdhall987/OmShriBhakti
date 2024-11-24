@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:omshribhakti/provider/auth_provider.dart';
 import 'package:omshribhakti/utils/Colors.dart';
 import 'package:omshribhakti/widgets/SliderCard.dart';
 import 'package:omshribhakti/widgets/liveDarshanCard.dart';
@@ -102,36 +104,46 @@ class _HomeState extends State<Home> {
                 height: 16,
               ),
               // profile section
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: sideGaps),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+              Consumer(
+                builder: (context,ref,child){
+                  final customUser = ref.watch(customUserProvider);
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: sideGaps),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("jai Shree ram",
-                          style: TextStyle(
-                            color: AppTheme.textGray,
-                            fontSize: 12
-                          ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("jai Shree ram",
+                              style: TextStyle(
+                                  color: AppTheme.textGray,
+                                  fontSize: 12
+                              ),
+                            ),
+                            Text(customUser!.signInType,
+                              style: TextStyle(
+                                  color: Colors.white
+                              ),
+                            ),
+                          ],
                         ),
-                        Text("User Nane",
-                          style: TextStyle(
-                            color: Colors.white
+                        GestureDetector(
+                          onTap: ()async{
+                            await ref.read(customUserProvider.notifier).signInWithGoogle();
+                          },
+                          child: Text("Login",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: AppTheme.primary
+                            ),
                           ),
-                        ),
+                        )
                       ],
                     ),
-                    Text("Login",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                        color: AppTheme.primary
-                      ),
-                    )
-                  ],
-                ),
+                  );
+                },
               ),
 
               SizedBox(

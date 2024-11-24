@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:omshribhakti/provider/auth_provider.dart';
 import 'package:omshribhakti/services/version_services.dart';
 import 'package:omshribhakti/utils/ImageCacheManger.dart';
 import 'package:omshribhakti/utils/colors.dart';
@@ -22,14 +23,25 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   }
 
   void checkVersion() async {
-  //   await cacheManager.clear();
-    // await VersionService.getLatestVersion(ref);
     if ( await VersionService.isUpdated(ref)) {
-      GoRouter.of(context).goNamed("NavigationBarScreen");
+      _silentSignIn();
     } else {
       GoRouter.of(context).goNamed("Update");
     }
   }
+  Future<void> _silentSignIn() async {
+    try {
+      await ref.read(customUserProvider.notifier).signInSilently();
+      final customUser = ref.watch(customUserProvider);
+      print(customUser!.signInType.toString());
+      print(customUser.apiData.toString());
+      GoRouter.of(context).goNamed("NavigationBarScreen");
+    } catch (e) {
+      // Handle silent sign-in failure if needed
+      debugPrint("Silent sign-in failed: $e");
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {

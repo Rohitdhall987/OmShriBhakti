@@ -71,6 +71,8 @@ dependencies:
   google_fonts: ^6.2.1
   dio: ^5.7.0
   font_awesome_flutter: ^10.8.0
+  device_info_plus: ^10.1.0
+  google_sign_in: ^6.2.2
 
 
 dependency_overrides:
