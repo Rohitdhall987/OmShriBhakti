@@ -22,6 +22,7 @@ import 'package:omshribhakti/screens/SplashScreen.dart';
 import 'package:omshribhakti/screens/UpdateAppPage.dart';
 import 'package:omshribhakti/screens/Web/Web.dart';
 import 'package:omshribhakti/screens/Yoga/all_yoga_category.dart';
+import 'package:omshribhakti/screens/Yoga/yoga_by_category.dart';
 import 'package:omshribhakti/screens/ecom/ByCategory.dart';
 import 'package:omshribhakti/screens/ecom/ProductDetails.dart';
 import 'package:omshribhakti/screens/geeta/GeetaAdhyaya.dart';
@@ -174,6 +175,11 @@ GoRouter route(){
             path: "/AllYogaCategory",
             name: "AllYogaCategory",
             builder: (context,state)=>const AllYogaCategory()
+        ),
+        GoRoute(
+            path: "/YogaByCategory/:id/:title",
+            name: "YogaByCategory",
+            builder: (context,state)=> YogaByCategory(id: int.parse(state.pathParameters["id"]!), title: state.pathParameters["title"]!)
         ),
       ]);
   return routes;

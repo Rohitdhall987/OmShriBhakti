@@ -10,11 +10,11 @@ final podcastServiceProvider = Provider((ref) => PodcastsService());
 class PodcastsService {
   String _url = dotenv.get('BASE_URl', fallback: "");
 
-  Future<List<Sanatanpodcat>> fetchPodcast(int? lastGodId) async {
+  Future<List<Sanatanpodcat>> fetchPodcast(int? lastPodcastId) async {
     try {
       // Construct the API URL
-      final apiUrl = lastGodId != null
-          ? '${_url}sanatanpodcast/$lastGodId'
+      final apiUrl = lastPodcastId != null
+          ? '${_url}sanatanpodcast/$lastPodcastId'
           : '${_url}sanatanpodcast';
 
       // Perform GET request

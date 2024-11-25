@@ -40,7 +40,6 @@ class QuotesCategoryNotifier extends StateNotifier<QuotesCategoryState> {
       final quotesCategoryService = _ref.read(quotesCategoryServiceProvider);
       final newQuotesCategory = await quotesCategoryService.fetchAllQuotesCategory();
       if (newQuotesCategory.isNotEmpty) {
-        lastGodId = newQuotesCategory.last.id;
         state = state.copyWith(
           allCategory: newQuotesCategory,
           isLoading: false,

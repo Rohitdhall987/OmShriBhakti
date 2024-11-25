@@ -31,7 +31,7 @@ class YogaCategoryNotifier extends StateNotifier<YogaCategoryState> {
       : super(YogaCategoryState(allCategory: [], isLoading: false));
 
   int? lastGodId;
-  Future<void> fetchQuotesCategory({bool isInitialLoad = false,required String token}) async {
+  Future<void> fetchYogaCategory({bool isInitialLoad = false,required String token}) async {
     if (state.isLoading ) return;
 
     state = state.copyWith(isLoading: true);
@@ -40,7 +40,6 @@ class YogaCategoryNotifier extends StateNotifier<YogaCategoryState> {
       final yogaCategoryService = _ref.read(yogaCategoryServiceProvider);
       final newYogaCategory = await yogaCategoryService.fetchAllYogaCategory(token);
       if (newYogaCategory.isNotEmpty) {
-        lastGodId = newYogaCategory.last.id;
         state = state.copyWith(
           allCategory: newYogaCategory,
           isLoading: false,

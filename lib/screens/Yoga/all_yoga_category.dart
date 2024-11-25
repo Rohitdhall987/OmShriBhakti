@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:omshribhakti/provider/auth_provider.dart';
 import 'package:omshribhakti/provider/yoga_all_category_provider.dart';
 import 'package:omshribhakti/widgets/YogaCategory.dart';
@@ -20,7 +21,7 @@ class _AllYogaCategoryState extends ConsumerState<AllYogaCategory> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final customUser = ref.watch(customUserProvider);
 
-      ref.read(yogaAllCategoryProvider.notifier).fetchQuotesCategory(isInitialLoad: true,token: customUser!.apiData!["token"]);
+      ref.read(yogaAllCategoryProvider.notifier).fetchYogaCategory(isInitialLoad: true,token: customUser!.apiData!["token"]);
 
     });
 
@@ -68,10 +69,20 @@ class _AllYogaCategoryState extends ConsumerState<AllYogaCategory> {
                       final category=yoga.allCategory[index];
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: yogaCategoryCard(
-                            height: MediaQuery.sizeOf(context).height*0.14,
-                            width: MediaQuery.sizeOf(context).width,
-                            category: category
+                        child: GestureDetector(
+                          onTap: (){
+                            GoRouter.of(context).pushNamed("YogaByCategory",
+                              pathParameters: {
+                                "id":category.id.toString(),
+                                "title":category.title,
+                              }
+                            );
+                          },
+                          child: yogaCategoryCard(
+                              height: MediaQuery.sizeOf(context).height*0.14,
+                              width: MediaQuery.sizeOf(context).width,
+                              category: category
+                          ),
                         ),
                       );
                     }

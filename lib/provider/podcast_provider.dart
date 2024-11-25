@@ -34,7 +34,7 @@ class PodcastNotifier extends StateNotifier<podcastState> {
   PodcastNotifier(this._ref)
       : super(podcastState(sanatanPodcat: [], isLoading: false, hasMore: true));
 
-  int? lastGodId;
+  int? lastPodcastId;
   Future<void> fetchPodcast({bool isInitialLoad = false}) async {
     if (state.isLoading || !state.hasMore) return;
 
@@ -42,9 +42,9 @@ class PodcastNotifier extends StateNotifier<podcastState> {
 
     try {
       final podcastService = _ref.read(podcastServiceProvider);
-      final newPodcasts = await podcastService.fetchPodcast(lastGodId);
+      final newPodcasts = await podcastService.fetchPodcast(lastPodcastId);
       if (newPodcasts.isNotEmpty) {
-        lastGodId = newPodcasts.last.id;
+        lastPodcastId = newPodcasts.last.id;
         state = state.copyWith(
           sanatanPodcat: [...state.sanatanPodcat, ...newPodcasts],
           isLoading: false,
