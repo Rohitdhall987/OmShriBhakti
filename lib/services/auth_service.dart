@@ -85,7 +85,7 @@ class AuthService {
 
       Uri url = Uri.https(
         dotenv.get("DOMAIN", fallback: ""),
-        "/api/GuestUserRegisterLogin",
+        "/api/v1/userRegisterLogin",
         {"type": "guest", "ip": deviceIp},
       );
 
@@ -117,7 +117,7 @@ class AuthService {
     try {
       Uri url = Uri.https(
         dotenv.get("DOMAIN", fallback: ""),
-        "/api/GuestUserRegisterLogin",
+        "/api/v1/userRegisterLogin",
         {"type": "google", "email": email, "fuid": fuid},
       );
 

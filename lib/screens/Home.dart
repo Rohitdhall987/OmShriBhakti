@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:omshribhakti/provider/auth_provider.dart';
+import 'package:omshribhakti/services/live_darshan_service.dart';
 import 'package:omshribhakti/utils/Colors.dart';
 import 'package:omshribhakti/widgets/SliderCard.dart';
 import 'package:omshribhakti/widgets/liveDarshanCard.dart';
@@ -96,7 +97,14 @@ class _HomeState extends State<Home> {
                     ),
                     Expanded(child: GestureDetector(
                           onTap: ()=>GoRouter.of(context).pushNamed("Web"),
-                        child: wallet()))
+                        child: Consumer(
+                            builder: (context,ref,child){
+                              final user=ref.watch(customUserProvider);
+                              return wallet(user!);
+                            }
+                        )
+                    )
+                    )
                   ],
                 ),
               ),
@@ -205,19 +213,48 @@ class _HomeState extends State<Home> {
                ),
               SizedBox(
                 height: MediaQuery.sizeOf(context).height*0.1,
-                child: ListView.builder(
-                    itemCount: 4,
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemBuilder: (context,index){
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: SizedBox(
-                            width: MediaQuery.sizeOf(context).width*0.6,
-                            child: GestureDetector(
-                                onTap: ()=>GoRouter.of(context).pushNamed("VideoPlayer"),
-                                child: liveDarshanCard())
-                        ),
+                child: Consumer(
+                    builder: (context,ref,child){
+                      final user = ref.watch(customUserProvider);
+                      LiveDarshanService service=LiveDarshanService();
+                      return FutureBuilder(
+                          future: service.fetchHomeLiveDarshan(user!.apiData!["token"]),
+                          builder: (context,snapshot) {
+                            if(snapshot.connectionState == ConnectionState.done && !snapshot.hasError){
+                              return ListView.builder(
+                                  itemCount: snapshot.data!.length,
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context,index){
+                                    return Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: SizedBox(
+                                          width: MediaQuery.sizeOf(context).width*0.6,
+                                          child: GestureDetector(
+                                              onTap: ()=>GoRouter.of(context).pushNamed("VideoPlayer"),
+                                              child: liveDarshanCard(image: snapshot.data![index].image, title: snapshot.data![index].title))
+                                      ),
+                                    );
+                                  }
+                              );
+                            }
+                            return ListView.builder(
+                                itemCount: 4,
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (context,index){
+                                  return Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: SizedBox(
+                                        width: MediaQuery.sizeOf(context).width*0.6,
+                                        child: GestureDetector(
+                                            onTap: ()=>GoRouter.of(context).pushNamed("VideoPlayer"),
+                                            child: liveDarshanCard(image: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", title: "Loading"))
+                                    ),
+                                  );
+                                }
+                            );
+                          }
                       );
                     }
                 ),

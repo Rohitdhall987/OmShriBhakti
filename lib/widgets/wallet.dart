@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:omshribhakti/model/main_wallet.dart';
+import 'package:omshribhakti/model/user_model.dart';
+import 'package:omshribhakti/services/wallet_service.dart';
 import 'package:omshribhakti/utils/Colors.dart';
 
-Widget wallet(){
+
+
+
+
+Widget wallet(CustomUser user){
+
+  WalletService service=WalletService();
+
+
+
   return Container(
     decoration: BoxDecoration(
       color: Colors.white,
@@ -29,13 +41,44 @@ Widget wallet(){
                         color: AppTheme.textGray
                       ),
                     ),
-                    Text("45",
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: AppTheme.primary
-                      ),
-                    ),
+                    FutureBuilder(
+                        future: service.getMainWalletAmount(id: user.apiData!["userId"], token: user.apiData!["token"]),
+                        builder: (context,snapshot){
+                          if(snapshot.connectionState ==ConnectionState.done && !snapshot.hasError){
+                            return  Text((snapshot.data!.amount.split(".")).first,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppTheme.primary
+                              ),
+                            );
+                          }
+                          return Text("0",
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: AppTheme.primary
+                            ),
+                          );
+                        }
+                    )
+                    // mainWallet.when(
+                    //     data: (wallet){
+                    //       return
+                    //     },
+                    //     error: (obj,stack){
+                    //       return Text("0",
+                    //         overflow: TextOverflow.ellipsis,
+                    //         style: TextStyle(
+                    //             fontWeight: FontWeight.bold,
+                    //             color: AppTheme.primary
+                    //         ),
+                    //       );
+                    //     },
+                    //     loading: (){
+                    //
+                    //     }
+                    // )
                   ],
                 ),
               )
@@ -58,13 +101,27 @@ Widget wallet(){
                           color: AppTheme.textGray
                       ),
                     ),
-                    Text("45",
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: AppTheme.primary
-                      ),
-                    ),
+                    FutureBuilder(
+                        future: service.getFreeWalletAmount(id: user.apiData!["userId"], token: user.apiData!["token"]),
+                        builder: (context,snapshot){
+                          if(snapshot.connectionState ==ConnectionState.done && !snapshot.hasError){
+                            return  Text((snapshot.data!.amount.split(".")).first,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppTheme.primary
+                              ),
+                            );
+                          }
+                          return Text("0",
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: AppTheme.primary
+                            ),
+                          );
+                        }
+                    )
                   ],
                 ),
                 SizedBox(

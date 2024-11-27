@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:omshribhakti/utils/Colors.dart';
 import 'package:omshribhakti/widgets/CachedNetworkImage.dart';
 
-Widget liveDarshanCard(){
+Widget liveDarshanCard({required String image,required String title}){
   return ClipRRect(
     borderRadius: BorderRadius.circular(5),
     child: Container(
@@ -18,7 +18,7 @@ Widget liveDarshanCard(){
         children: [
           Expanded(child: SizedBox(
             height: double.maxFinite,
-              child: cachedNetworkImage("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",BoxFit.fitHeight)
+              child: cachedNetworkImage(image,BoxFit.fitHeight)
           )),
           SizedBox(
             width: 8,
@@ -36,10 +36,11 @@ Widget liveDarshanCard(){
                     ),
                   ),
                 ),
-                Text("Tirupati balaji",
+                Text(title,
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 12
+                      fontSize: 12,
+                    overflow: TextOverflow.ellipsis
                   ),
                 )
               ],
