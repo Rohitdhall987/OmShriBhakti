@@ -10,6 +10,7 @@ import 'package:omshribhakti/screens/Mantra.dart';
 import 'package:omshribhakti/screens/Players/MusicPlayer.dart';
 import 'package:omshribhakti/screens/Podcast/PodcastSeries.dart';
 import 'package:omshribhakti/screens/Podcast/SingleSeries.dart';
+import 'package:omshribhakti/screens/Quiz/all_quiz_category.dart';
 import 'package:omshribhakti/screens/Quotes/AllCategory.dart';
 import 'package:omshribhakti/screens/Quotes/ImageEditor.dart';
 import 'package:omshribhakti/screens/Quotes/WithCategory.dart';
@@ -180,6 +181,11 @@ GoRouter route(){
             path: "/YogaByCategory/:id/:title",
             name: "YogaByCategory",
             builder: (context,state)=> YogaByCategory(id: int.parse(state.pathParameters["id"]!), title: state.pathParameters["title"]!)
+        ),
+        GoRoute(
+            path: "/QuizCategory",
+            name: "QuizCategory",
+            builder: (context,state)=> const QuizCategory()
         ),
       ]);
   return routes;

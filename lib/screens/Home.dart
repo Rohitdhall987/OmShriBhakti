@@ -334,7 +334,7 @@ class _HomeState extends State<Home> {
                       ),
                       itemBuilder:(context,index){
                         return GestureDetector(
-                            onTap: ()=>GoRouter.of(context).pushNamed("Web"),
+                            onTap: ()=>GoRouter.of(context).pushNamed("QuizCategory"),
                             child: specialItem("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png","Quiz Game", "Play & Earn"));
                       }
                   ),
