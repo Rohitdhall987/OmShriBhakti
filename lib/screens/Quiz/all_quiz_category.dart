@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:omshribhakti/provider/auth_provider.dart';
 import 'package:omshribhakti/services/quiz_service.dart';
 import 'package:omshribhakti/widgets/QuizCategory.dart';
@@ -28,6 +29,11 @@ class QuizCategory extends ConsumerWidget {
                   gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisSpacing: 16,crossAxisSpacing: 16),
                   itemBuilder: (context,index){
                     return GestureDetector(
+                        onTap: ()=>GoRouter.of(context).pushNamed("QuizPage",
+                            pathParameters: {
+                              "categoryId":snapshot.data![index].id.toString()
+                            }
+                        ),
                         child: quizCategory(snapshot.data![index].title, snapshot.data![index].image)
                     );
                   }
@@ -36,12 +42,10 @@ class QuizCategory extends ConsumerWidget {
             return GridView.builder(
                 shrinkWrap: true,
                 physics:const NeverScrollableScrollPhysics(),
-                itemCount: 5,
+                itemCount: 4,
                 gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisSpacing: 16,crossAxisSpacing: 16),
                 itemBuilder: (context,index){
-                  return GestureDetector(
-                      child: quizCategory("Loading", "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png")
-                  );
+                  return quizCategory("Loading", "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png");
                 }
             );
           }

@@ -11,6 +11,8 @@ import 'package:omshribhakti/screens/Players/MusicPlayer.dart';
 import 'package:omshribhakti/screens/Podcast/PodcastSeries.dart';
 import 'package:omshribhakti/screens/Podcast/SingleSeries.dart';
 import 'package:omshribhakti/screens/Quiz/all_quiz_category.dart';
+import 'package:omshribhakti/screens/Quiz/quiz_page.dart';
+import 'package:omshribhakti/screens/Quiz/quiz_result.dart';
 import 'package:omshribhakti/screens/Quotes/AllCategory.dart';
 import 'package:omshribhakti/screens/Quotes/ImageEditor.dart';
 import 'package:omshribhakti/screens/Quotes/WithCategory.dart';
@@ -186,6 +188,15 @@ GoRouter route(){
             path: "/QuizCategory",
             name: "QuizCategory",
             builder: (context,state)=> const QuizCategory()
+        ),
+        GoRoute(
+            path: "/QuizPage/:categoryId",
+            name: "QuizPage",
+            builder: (context,state)=>  QuizPage(categoryId: int.parse(state.pathParameters["categoryId"]!))
+        ),GoRoute(
+            path: "/QuizResultPage/:data",
+            name: "QuizResultPage",
+            builder: (context,state)=>  QuizResultPage(jsonResult: state.pathParameters["data"],)
         ),
       ]);
   return routes;
