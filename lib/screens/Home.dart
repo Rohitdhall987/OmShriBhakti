@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:omshribhakti/provider/Navigation_Provider.dart';
 import 'package:omshribhakti/provider/auth_provider.dart';
 import 'package:omshribhakti/services/live_darshan_service.dart';
+import 'package:omshribhakti/services/product_service.dart';
 import 'package:omshribhakti/utils/Colors.dart';
 import 'package:omshribhakti/widgets/SliderCard.dart';
 import 'package:omshribhakti/widgets/liveDarshanCard.dart';
@@ -362,10 +364,20 @@ class _HomeState extends State<Home> {
                         )
                       ],
                     ),
-                    Text("See All",
-                      style: TextStyle(
-                        color: AppTheme.primary
-                      ),
+                    Consumer(
+                      builder: (context,ref,child) {
+
+                        return GestureDetector(
+                          onTap: (){
+                            ref.read(navigationIndexProvider.notifier).state=2;
+                          },
+                          child: Text("See All",
+                            style: TextStyle(
+                              color: AppTheme.primary
+                            ),
+                          ),
+                        );
+                      }
                     )
                   ],
                 ),
@@ -375,19 +387,48 @@ class _HomeState extends State<Home> {
               ),
               SizedBox(
                 height: MediaQuery.sizeOf(context).height*0.225,
-                child: ListView.builder(
-                  itemCount: 4,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context,index){
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: SizedBox(
-                          width: MediaQuery.sizeOf(context).width*0.4,
-                            child: trendingProduct("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "Shri Ram ji Lockets")
-                        ),
-                      );
-                    }
+                child: Consumer(
+                  builder: (context,ref,child) {
+                    final user=ref.watch(customUserProvider);
+                    ProductService productService=ProductService();
+                    return FutureBuilder(
+                      future:productService.fetchTrendingProducts(user!.apiData!["token"]) ,
+                      builder: (context,snapshot) {
+                        if(snapshot.connectionState==ConnectionState.done && snapshot.hasData){
+                          final all=snapshot.data!.trendingProducts;
+                          return ListView.builder(
+                              itemCount: all.length,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context,index){
+                                final product=all[index];
+                                return Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: SizedBox(
+                                      width: MediaQuery.sizeOf(context).width*0.4,
+                                      child: trendingProduct(product.image, product.title)
+                                  ),
+                                );
+                              }
+                          );
+                        }
+                        return ListView.builder(
+                          itemCount: 4,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context,index){
+                              return Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: SizedBox(
+                                  width: MediaQuery.sizeOf(context).width*0.4,
+                                    child: trendingProduct("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "Loading")
+                                ),
+                              );
+                            }
+                        );
+                      }
+                    );
+                  }
                 ),
               ),
               SizedBox(

@@ -8,13 +8,14 @@ Widget trendingProduct(image,title){
     children: [
       Expanded(
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
             child: cachedNetworkImage(image,BoxFit.fitHeight)
         ),
       ),
       Text(title,
-        style: TextStyle(
-          color: Colors.white
+        style: const TextStyle(
+          color: Colors.white,
+          overflow: TextOverflow.ellipsis
         ),
       )
     ],

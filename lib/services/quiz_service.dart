@@ -4,7 +4,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:omshribhakti/model/quiz_category_model.dart';
 import 'package:omshribhakti/model/quiz_question_model.dart';
-import 'package:omshribhakti/model/quiz_result.dart';
 
 class QuizService {
   final String _url = dotenv.get('BASE_URl', fallback: "");
