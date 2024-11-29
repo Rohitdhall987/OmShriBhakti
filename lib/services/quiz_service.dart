@@ -63,8 +63,8 @@ class QuizService {
 
 
   Future<dynamic> submitQuiz({required String token,required int userId,required int categoryId,required List<int?> answers ,required List<int> questionsId}) async {
-    // try {
-      String url = "${_url}v1/user/home/DeclareQuizResult";
+    try {
+      String url = "${_url}v1/user/home/DeclareQuizResult?apiKey=${dotenv.get("API_KEY", fallback: "")}";
        Map<String,String> answerData={};
 
       for(int i=0;i<questionsId.length;i++){
@@ -104,11 +104,14 @@ class QuizService {
       if (response.statusCode == 200) {
         return response.body;
       } else {
+        print(response.request);
+        print(data);
+        print(response.body);
         throw "API Error: ${response.statusCode} - ${response.reasonPhrase}";
       }
-    // } catch (e) {
-    //   throw "Unable to fetch quiz result: $e";
-    // }
+    } catch (e) {
+      throw "Unable to fetch quiz result: $e";
+    }
   }
 
 }
