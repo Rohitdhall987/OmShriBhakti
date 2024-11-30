@@ -38,6 +38,7 @@ class CustomUserNotifier extends StateNotifier<CustomUser?> {
 
   Future<void> signInWithGoogle() async {
     final user = await _authService.signInWithGoogle();
+    print(user);
     state = user;
   }
 
@@ -48,6 +49,7 @@ class CustomUserNotifier extends StateNotifier<CustomUser?> {
 
   Future<void> signOut() async {
     await _authService.signOut();
-    state = null;
+    await signInAsGuest();
+    // state = null;
   }
 }

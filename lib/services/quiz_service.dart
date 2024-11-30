@@ -104,9 +104,9 @@ class QuizService {
       if (response.statusCode == 200) {
         return response.body;
       } else {
-        print(response.request);
-        print(data);
-        print(response.body);
+        // print(response.request);
+        // print(data);
+        // print(response.body);
         throw "API Error: ${response.statusCode} - ${response.reasonPhrase}";
       }
     } catch (e) {

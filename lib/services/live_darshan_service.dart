@@ -5,10 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:omshribhakti/model/LiveDarshanModel.dart';
 
+
 final liveDarshanServiceProvider = Provider((ref) => LiveDarshanService());
 
 class LiveDarshanService {
-  String _url = dotenv.get('BASE_URl', fallback: "");
+  final String _url = dotenv.get('BASE_URl', fallback: "");
 
   Future<List<LiveDarshan>> fetchAllLiveDarshans(int? lastGodId) async {
     try {
@@ -41,6 +42,8 @@ class LiveDarshanService {
       final apiUrl =  '${_url}v1/user/home/Livedarshan?apiKey=${dotenv.get("API_KEY", fallback: "")}';
 
       // Perform GET request
+
+
       final response = await http.post(Uri.parse(apiUrl),
         headers: {
           HttpHeaders.authorizationHeader : "Bearer $token"

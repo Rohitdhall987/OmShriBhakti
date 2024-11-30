@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -23,6 +24,10 @@ class _QuizPageState extends ConsumerState<QuizPage> {
   bool hasLoaded=false;
   late List<QuizQuestion> quizQuestions;
   bool canSubmit=false;
+  bool loading=false;
+  late Timer _timer;
+  double _progress = 0.0; // 0 to 1 for the progress bar
+  int _remainingTime = 120; // 2 minutes in seconds
 
   @override
   void initState() {
@@ -33,7 +38,23 @@ class _QuizPageState extends ConsumerState<QuizPage> {
 
     });
 
+    _startTimer();
   }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_remainingTime > 0) {
+          _remainingTime--;
+          _progress = (120 - _remainingTime) / 120;
+        } else {
+          timer.cancel();
+          context.pop();
+        }
+      });
+    });
+  }
+
   void fetchQuestion()async{
     final user = ref.read(customUserProvider);
     quizQuestions=await quizService.fetchQuizQuestion(
@@ -53,9 +74,13 @@ class _QuizPageState extends ConsumerState<QuizPage> {
     if(!canSubmit){
       return;
     }
+    setState(() {
+      loading=true;
+    });
     final user = ref.read(customUserProvider);
     quizService.submitQuiz(token: user!.apiData!["token"], userId: user.apiData!["userId"], categoryId: widget.categoryId, answers: selectedAnswers, questionsId: quizQuestions.map((question)=>question.id).toList()).then(
             (data){
+              loading=false;
               if(jsonDecode(data)["message"]=="success"){
                 if(mounted){
                   GoRouter.of(context).pushReplacementNamed("QuizResultPage",
@@ -68,6 +93,14 @@ class _QuizPageState extends ConsumerState<QuizPage> {
             }
    );
   }
+
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +115,14 @@ class _QuizPageState extends ConsumerState<QuizPage> {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Column(
                 children: [
+                  Text("Total Questions: ${quizQuestions.length}",
+                    style: const TextStyle(
+                      color: Colors.white
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
                   Expanded(
                     child: ListView.builder(
                       itemCount: quizQuestions.length,
@@ -102,12 +143,26 @@ class _QuizPageState extends ConsumerState<QuizPage> {
                       },
                     ),
                   ),
-                  MaterialButton(
+                  !loading?MaterialButton(
                     color:canSubmit? AppTheme.primary:Colors.grey,
                     textColor: Colors.white,
-                    onPressed:submit ,
+                    onPressed:submit,
                     child: const Text("SUBMIT"),
-                  )
+                  ):const CircularProgressIndicator(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: LinearProgressIndicator(
+                      value: _progress,
+                      backgroundColor: Colors.grey.shade300,
+                      color: AppTheme.primary,
+                      minHeight: 8.0,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "Time Remaining: ${_remainingTime ~/ 60}:${(_remainingTime % 60).toString().padLeft(2, '0')}",
+                    style: const TextStyle(fontSize: 16,color: Colors.white),
+                  ),
                 ],
               ),
             ),

@@ -10,11 +10,12 @@ final yogaCategoryServiceProvider = Provider((ref) => YogaService());
 
 class YogaService {
   final String _url = dotenv.get('BASE_URl', fallback: "");
+  final String apiKey = dotenv.get('API_KEY', fallback: "");
 
   Future<List<AllYogaCategories>> fetchAllYogaCategory(token) async {
     try {
       // Construct the API URL
-      final apiUrl ='${_url}user/AllYogaCategory';
+      final apiUrl ='${_url}v1/user/AllYogaCategory?apiKey=$apiKey';
 
       // Perform POST request
       final response = await http.post(Uri.parse(apiUrl),
@@ -30,16 +31,17 @@ class YogaService {
         final yoga = YogaCategory.fromJson(data);
         return yoga.allYogaCategories; // Return the list of Video objects
       } else {
+        // print(response.body);
         throw "API Error: ${response.statusCode} - ${response.reasonPhrase}";
       }
     } catch (e) {
-      throw "Unable to fetch yoga category: $e '${_url}user/AllYogaCategory'";
+      throw "Unable to fetch yoga category: $e '${_url}v1/user/AllYogaCategory?apiKey=$apiKey'";
     }
   }
 
 Future<List<AllYoga>> fetchYogaByCategory(token,id) async {
   try {
-    final apiUrl = '${_url}user/AllYogaByCategory?category_id=$id';
+    final apiUrl = '${_url}v1/user/AllYogaByCategory?category_id=$id&apiKey=$apiKey';
     final response = await http.post(Uri.parse(apiUrl),
         headers: {
           HttpHeaders.authorizationHeader:"Bearer $token"

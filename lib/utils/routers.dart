@@ -187,7 +187,7 @@ GoRouter route(){
         GoRoute(
             path: "/QuizCategory",
             name: "QuizCategory",
-            builder: (context,state)=> const QuizCategory()
+            builder: (context,state)=>  QuizCategory()
         ),
         GoRoute(
             path: "/QuizPage/:categoryId",

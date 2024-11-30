@@ -54,4 +54,41 @@ class WalletService {
        throw "unable to fetch free wallet $e";
      }
    }
+
+
+Future<void> addFreeCoin(username,token) async {
+
+
+  print("getting data");
+  String baseUrl = dotenv.get("BASE_URl", fallback: "");
+  String apiKey = dotenv.get("API_KEY", fallback: "");
+  // String? userId = _userData.getname();
+  // String? token = _userData.getToken();
+
+  if (baseUrl.isEmpty || apiKey.isEmpty || username.isEmpty || token.isEmpty) {
+    return;
+  }
+
+  Uri url = Uri.parse("${baseUrl}user/GetCoinByAds?user_id=$username&apiKey=$apiKey");
+
+  print(url);
+
+  try {
+    http.Response response = await http.post(
+      url,
+      headers: {
+        HttpHeaders.authorizationHeader: "Bearer $token",
+      },
+    );
+
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print("Failed to get coins: ${response.statusCode} ${response.body}");
+    }
+  } catch (e) {
+    print("Error occurred while making the request: $e");
+  }
+
+}
 }

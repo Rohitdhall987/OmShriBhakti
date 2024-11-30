@@ -51,6 +51,17 @@ class AuthService {
       print("here-----");
 
       if (firebaseUser != null ) {
+        // Create CustomUser with Google and API data
+        _currentUser = CustomUser(
+          signInType: 'google',
+          apiData: null, // Update this based on your API response
+          googleData: {
+            "uid": firebaseUser.uid,
+            "email": firebaseUser.email,
+            "displayName": firebaseUser.displayName,
+            "photoURL": firebaseUser.photoURL,
+          },
+        );
         print("trying to register");
         // Call your API to register/login
         final success = await registerLogin(firebaseUser.email!, firebaseUser.uid);
@@ -59,17 +70,7 @@ class AuthService {
         print("firebaseuser null-----");
       }
 
-      // Create CustomUser with Google and API data
-      _currentUser = CustomUser(
-        signInType: 'google',
-        apiData: null, // Update this based on your API response
-        googleData: {
-          "uid": firebaseUser!.uid,
-          "email": firebaseUser.email,
-          "displayName": firebaseUser.displayName,
-          "photoURL": firebaseUser.photoURL,
-        },
-      );
+
       return _currentUser;
     } catch (e) {
       throw Exception("Google Sign-In Failed: $e");

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:omshribhakti/model/main_wallet.dart';
 import 'package:omshribhakti/model/user_model.dart';
 import 'package:omshribhakti/services/wallet_service.dart';
 import 'package:omshribhakti/utils/Colors.dart';
@@ -45,7 +44,8 @@ Widget wallet(CustomUser user){
                         future: service.getMainWalletAmount(id: user.apiData!["userId"], token: user.apiData!["token"]),
                         builder: (context,snapshot){
                           if(snapshot.connectionState ==ConnectionState.done && !snapshot.hasError){
-                            return  Text((snapshot.data!.amount.split(".")).first,
+                            // return  Text((snapshot.data!.amount.split(".")).first,
+                            return  Text(snapshot.data!.amount,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -105,15 +105,16 @@ Widget wallet(CustomUser user){
                         future: service.getFreeWalletAmount(id: user.apiData!["userId"], token: user.apiData!["token"]),
                         builder: (context,snapshot){
                           if(snapshot.connectionState ==ConnectionState.done && !snapshot.hasError){
-                            return  Text((snapshot.data!.amount.split(".")).first,
+                            // return  Text((snapshot.data!.amount.split(".")).first,
+                            return  Text(snapshot.data!.amount,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
+                              style:const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: AppTheme.primary
                               ),
                             );
                           }
-                          return Text("0",
+                          return const Text("0",
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,

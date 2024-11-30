@@ -117,6 +117,33 @@ class _HomeState extends State<Home> {
               Consumer(
                 builder: (context,ref,child){
                   final customUser = ref.watch(customUserProvider);
+                  if(customUser!.signInType!="google"){
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: sideGaps),
+                      child: GestureDetector(
+                        onTap: ()async{
+                          await ref.read(customUserProvider.notifier).signInWithGoogle();
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical:  8.0,horizontal: 16),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: AppTheme.primary,
+                              width: 2
+                            ),
+                              borderRadius: BorderRadius.circular(100)
+                          ),
+                          child:const Text("Login",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                color: AppTheme.primary
+                            ),
+                          ),
+                        ),
+                      ),
+                    ) ;
+                  }
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: sideGaps),
                     child: Row(
@@ -131,7 +158,7 @@ class _HomeState extends State<Home> {
                                   fontSize: 12
                               ),
                             ),
-                            Text(customUser!.signInType,
+                            Text(customUser.apiData!["username"],
                               style: TextStyle(
                                   color: Colors.white
                               ),
@@ -140,9 +167,9 @@ class _HomeState extends State<Home> {
                         ),
                         GestureDetector(
                           onTap: ()async{
-                            await ref.read(customUserProvider.notifier).signInWithGoogle();
+                            await ref.read(customUserProvider.notifier).signOut();
                           },
-                          child: Text("Login",
+                          child: Text("Log Out",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12,
@@ -301,14 +328,25 @@ class _HomeState extends State<Home> {
                         crossAxisSpacing: 8
                       ),
                       itemBuilder:(context,index){
-                        return GestureDetector(
-                          onTap: (){
-                            if(menuItems[index]["routeName"].toString().isEmpty){
-                              return;
-                            }
-                            GoRouter.of(context).pushNamed(menuItems[index]["routeName"]);
-                          },
-                            child: menuItem(context,menuItems[index]["icon"], menuItems[index]["name"])
+                        return Consumer(
+                          builder: (context,ref,child) {
+                            return GestureDetector(
+                              onTap: (){
+                                final user=ref.read(customUserProvider);
+                                if(menuItems[index]["routeName"].toString().isEmpty){
+                                  return;
+                                }
+                                if(menuItems[index]["routeName"]=="Web" && user!.signInType !="google" ){
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    content: Text("Please Login First"),
+                                  ));
+                                  return;
+                                }
+                                GoRouter.of(context).pushNamed(menuItems[index]["routeName"]);
+                              },
+                                child: menuItem(context,menuItems[index]["icon"], menuItems[index]["name"])
+                            );
+                          }
                         );
                       }
                   ),
@@ -335,9 +373,23 @@ class _HomeState extends State<Home> {
                           childAspectRatio:3.6
                       ),
                       itemBuilder:(context,index){
-                        return GestureDetector(
-                            onTap: ()=>GoRouter.of(context).pushNamed("QuizCategory"),
-                            child: specialItem("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png","Quiz Game", "Play & Earn"));
+                        return Consumer(
+                          builder: (context,ref,child){
+
+                            return GestureDetector(
+                                onTap: (){
+                                  if(ref.read(customUserProvider)?.signInType=="google"){
+                                    GoRouter.of(context).pushNamed("QuizCategory");
+                                  }else{
+                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                      content: Text("Please Login First"),
+                                    ));
+                                  }
+
+                                },
+                                child: specialItem("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png","Quiz Game", "Play & Earn"));
+                          },
+                        );
                       }
                   ),
                 ),
