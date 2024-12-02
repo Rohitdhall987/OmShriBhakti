@@ -7,7 +7,7 @@ Widget articleCard({
   required String type,
   double? height,
   double? width,
-  required List<String> images,
+  required String image,
   required int seriesCount,
   required int singleCount,
   required String date,
@@ -23,19 +23,7 @@ Widget articleCard({
     child: Column(
       children: [
         Expanded(
-          child: ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: images.length,
-              itemBuilder: (context,index){
-                return Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: cachedNetworkImage(images[index],BoxFit.fitHeight),
-
-
-                );
-              },
-          ),
+          child: cachedNetworkImage(image,BoxFit.fitHeight),
         ),
         SizedBox(
           height: 8,

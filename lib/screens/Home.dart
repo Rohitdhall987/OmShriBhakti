@@ -187,48 +187,48 @@ class _HomeState extends State<Home> {
                 height: 16,
               ),
               // membership renew box
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                margin: const EdgeInsets.symmetric(horizontal: sideGaps),
-
-                decoration: BoxDecoration(
-                  color: AppTheme.backgroundLight,
-                  border: Border.all(
-                    color: Colors.yellow
-                  ),
-                  borderRadius: BorderRadius.circular(10)
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        flex: 4,
-                          child: Text("3 days left in membership",
-                        style: TextStyle(
-                          color: Colors.white
-                        ),
-                      )
-                      ),
-                      Expanded(
-                        flex: 2,
-                          child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5)
-                        ),
-                        child: Center(child: Text("Renew Now")),
-                      )
-                      )
-                    ],
-                  ),
-                ),
-              ),
-               SizedBox(
-                 height: 20,
-               ),
+              // Container(
+              //   padding: const EdgeInsets.all(8.0),
+              //   margin: const EdgeInsets.symmetric(horizontal: sideGaps),
+              //
+              //   decoration: BoxDecoration(
+              //     color: AppTheme.backgroundLight,
+              //     border: Border.all(
+              //       color: Colors.yellow
+              //     ),
+              //     borderRadius: BorderRadius.circular(10)
+              //   ),
+              //   child: Padding(
+              //     padding: const EdgeInsets.symmetric(vertical: 4.0),
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         Expanded(
+              //           flex: 4,
+              //             child: Text("3 days left in membership",
+              //           style: TextStyle(
+              //             color: Colors.white
+              //           ),
+              //         )
+              //         ),
+              //         Expanded(
+              //           flex: 2,
+              //             child: Container(
+              //           padding: const EdgeInsets.symmetric(vertical: 8.0),
+              //           decoration: BoxDecoration(
+              //             color: Colors.white,
+              //             borderRadius: BorderRadius.circular(5)
+              //           ),
+              //           child: Center(child: Text("Renew Now")),
+              //         )
+              //         )
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              //  SizedBox(
+              //    height: 20,
+              //  ),
 
                //live darshan
 

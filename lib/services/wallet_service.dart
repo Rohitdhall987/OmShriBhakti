@@ -6,9 +6,10 @@ import 'package:omshribhakti/model/free_wallet.dart';
 import 'package:omshribhakti/model/main_wallet.dart';
 
 class WalletService {
+  final baseUrl=dotenv.get("BASE_URl",fallback: "");
    Future<MainWallet> getMainWalletAmount({required int id,required String token}) async {
     try {
-      String url = "https://m.omshribhakti.com/api/v1/user/home/MainWallet?user_id=$id&apiKey=${dotenv.get("API_KEY", fallback: "")}";
+      String url = "${baseUrl}v1/user/home/MainWallet?user_id=$id&apiKey=${dotenv.get("API_KEY", fallback: "")}";
 
       http.Response response = await http.post(
         Uri.parse(url),
@@ -33,7 +34,7 @@ class WalletService {
 
 
      try {
-       String url = "https://m.omshribhakti.com/api/v1/user/home/FreeWallet?user_id=$id&apiKey=${dotenv.get("API_KEY", fallback: "")}";
+       String url = "${baseUrl}v1/user/home/FreeWallet?user_id=$id&apiKey=${dotenv.get("API_KEY", fallback: "")}";
 
        http.Response response = await http.post(
          Uri.parse(url),
@@ -65,7 +66,7 @@ Future<void> addFreeCoin(username,token) async {
   // String? userId = _userData.getname();
   // String? token = _userData.getToken();
 
-  if (baseUrl.isEmpty || apiKey.isEmpty || username.isEmpty || token.isEmpty) {
+  if (baseUrl.isEmpty || apiKey.isEmpty ) {
     return;
   }
 

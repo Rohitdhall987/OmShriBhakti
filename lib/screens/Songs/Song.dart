@@ -56,12 +56,7 @@ class Music extends ConsumerWidget{
                                 type:"Songs",
                                 height: MediaQuery.sizeOf(context).height*0.25,
                                 width: MediaQuery.sizeOf(context).width,
-                                images: [
-                                  "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",
-                                  "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",
-                                  "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",
-                                  "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
-                                ],
+                                image: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",
                                 seriesCount: 15,
                                 singleCount: 5,
                                 date: "2024-10-27 14:15:16"

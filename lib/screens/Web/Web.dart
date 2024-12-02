@@ -79,7 +79,7 @@ class _WebState extends ConsumerState<Web> {
         onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
           WalletService wallet=WalletService();
           final user=ref.read(customUserProvider);
-          wallet.addFreeCoin(user!.apiData!["userName"], user.apiData!["token"]).then((_)=>mounted?context.pop():null);
+          wallet.addFreeCoin(user!.apiData!["username"], user.apiData!["token"]).then((_)=>mounted?context.pop():null);
         },
       );
       _rewardedAd = null;

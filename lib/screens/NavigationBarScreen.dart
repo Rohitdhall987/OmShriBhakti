@@ -32,7 +32,7 @@ class NavigationBarScreen extends ConsumerWidget {
       const Home(),
       const Videos(),
       const EcomHome(),
-      const Articles(),
+       Articles(),
       const Placeholder(),
     ];
 

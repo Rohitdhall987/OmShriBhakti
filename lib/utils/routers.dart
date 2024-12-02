@@ -4,6 +4,7 @@ import 'package:omshribhakti/screens/AllLiveDarshans.dart';
 import 'package:omshribhakti/screens/Articles/ArticleByMonth.dart';
 import 'package:omshribhakti/screens/Articles/ArticleSeries.dart';
 import 'package:omshribhakti/screens/Articles/ReadArticle.dart';
+import 'package:omshribhakti/screens/Articles/SingleArticles.dart';
 import 'package:omshribhakti/screens/GodPlayList.dart';
 import 'package:omshribhakti/screens/Gods.dart';
 import 'package:omshribhakti/screens/Mantra.dart';
@@ -61,9 +62,9 @@ GoRouter route(){
             name: "SongsByMonth",
             builder: (context, state) => const SongsByMonth()),
         GoRoute(
-            path: "/ArticleByMonth",
+            path: "/ArticleByMonth/:id",
             name: "ArticleByMonth",
-            builder: (context, state) => const ArticleByMonth()),
+            builder: (context, state) =>  ArticleByMonth(id: state.pathParameters["id"]!,)),
         GoRoute(
             path: "/Gods",
             name: "Gods",
@@ -123,6 +124,11 @@ GoRouter route(){
             path: "/SingleSeries/:id",
             name: "SingleSeries",
             builder: (context,state)=>  SingleSeries(id: int.parse(state.pathParameters["id"]!),)
+        ),
+            GoRoute(
+            path: "/SingleArticlesList/:id",
+            name: "SingleArticlesList",
+            builder: (context,state)=>  SingleArticlesList(id: state.pathParameters["id"]!,)
         ),
         GoRoute(
             path: "/ArticleSeries",
