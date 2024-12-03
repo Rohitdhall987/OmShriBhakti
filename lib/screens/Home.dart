@@ -7,6 +7,7 @@ import 'package:omshribhakti/provider/Navigation_Provider.dart';
 import 'package:omshribhakti/provider/auth_provider.dart';
 import 'package:omshribhakti/services/ecom_services.dart';
 import 'package:omshribhakti/services/live_darshan_service.dart';
+import 'package:omshribhakti/services/quotes_services.dart';
 import 'package:omshribhakti/utils/Colors.dart';
 import 'package:omshribhakti/widgets/SliderCard.dart';
 import 'package:omshribhakti/widgets/liveDarshanCard.dart';
@@ -670,13 +671,41 @@ class _HomeState extends State<Home> {
                               SizedBox(
                                 height: 16,
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title", ),
-                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title", ),
-                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title", ),
-                                ],
+                              Consumer(
+                                builder: (context,ref,child) {
+                                  final user=ref.watch(customUserProvider);
+                                  QuotesService quotesServices=QuotesService();
+                                  return FutureBuilder(
+                                    future: quotesServices.fetchHomeCategories(user!.apiData!['token']),
+                                    builder: (context,snapshot) {
+                                      if(!snapshot.hasData && snapshot.connectionState != ConnectionState.done){
+                                        return Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "Loading", ),
+                                            quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "Loading", ),
+                                            quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "Loading", ),
+                                          ],
+                                        );
+                                      }
+                                      final categories=snapshot.data!;
+                                      return Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: categories.map((data)=>GestureDetector(
+                                          onTap: (){
+                                            GoRouter.of(context).pushNamed("QuotesWithCategory",
+                                              pathParameters: {
+                                                'id':data.id.toString()
+                                              }
+                                            );
+                                          },
+                                            child: quotesThumbnail(context, data.image, data.Title, )
+                                        )
+                                        ).toList(),
+                                      );
+                                    }
+                                  );
+                                }
                               ),
                               SizedBox(
                                 height: 8,
