@@ -6,6 +6,8 @@ import"package:http/http.dart" as http;
 import "package:omshribhakti/model/article_series_by_month.dart";
 import "package:omshribhakti/model/month_article.dart";
 import "package:omshribhakti/model/monthly_articles_model.dart";
+import "package:omshribhakti/model/read_article_data_model.dart";
+import "package:omshribhakti/model/single_web_reading_model.dart";
 
 class ArticleService{
   final _baseUrl=dotenv.get("BASE_URl",fallback: "");
@@ -106,6 +108,74 @@ class ArticleService{
 
 
         return SingleMonthArticleSeries.fromJson(data);
+      }
+      else {
+        throw "API Error: ${response.statusCode} - ${response.reasonPhrase}";
+      }
+    } catch (e) {
+      throw "Unable to fetch monthly category by id : $e";
+    }
+  }
+  Future<SingleWebReadingModel> fetchSingleWebReadingSeason(token,id)async{
+
+    try {
+
+
+      // Construct the API URL
+      final apiUrl = "${_baseUrl}v1/user/singleWebReadingArticleByMonthCategory?apiKey=$_apiKey&web_reading_id=$id";
+
+
+
+      // Perform GET request
+      final response = await http.post(Uri.parse(apiUrl),
+          headers: {
+            HttpHeaders.authorizationHeader:"Bearer $token"
+          }
+      );
+
+
+
+      // Check if the response status is successful
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+
+
+        return SingleWebReadingModel.fromJson(data);
+      }
+      else {
+        throw "API Error: ${response.statusCode} - ${response.reasonPhrase}";
+      }
+    } catch (e) {
+      throw "Unable to fetch monthly category by id : $e";
+    }
+  }
+  Future<ReadArticleDataModel> getArticle(token,id)async{
+
+    try {
+
+
+      // Construct the API URL
+      final apiUrl = "${_baseUrl}v1/user/singleRandomTopic?apiKey=$_apiKey&topic_id=$id";
+
+
+
+      // Perform GET request
+      final response = await http.post(Uri.parse(apiUrl),
+          headers: {
+            HttpHeaders.authorizationHeader:"Bearer $token"
+          }
+      );
+
+
+
+      // Check if the response status is successful
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+
+
+        return ReadArticleDataModel.fromJson(data);
       }
       else {
         throw "API Error: ${response.statusCode} - ${response.reasonPhrase}";

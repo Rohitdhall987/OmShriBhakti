@@ -59,7 +59,11 @@ class ArticleByMonth extends ConsumerWidget {
                                     padding: const EdgeInsets.only(right: 8.0),
                                     child: GestureDetector(
                                         onTap: (){
-                                          GoRouter.of(context).pushNamed("ReadArticle");
+                                          GoRouter.of(context).pushNamed("ReadArticle",
+                                            pathParameters: {
+                                              'id':singleArticle.id.toString()
+                                            }
+                                          );
                                         },
                                         child: thumbnailCard(MediaQuery.sizeOf(context).height*0.4, MediaQuery.sizeOf(context).width*0.7, singleArticle.title, singleArticle.image)
                                     ),
@@ -122,7 +126,11 @@ class ArticleByMonth extends ConsumerWidget {
                                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                                 child: GestureDetector(
                                   onTap: (){
-                                    GoRouter.of(context).pushNamed("ArticleSeries");
+                                    GoRouter.of(context).pushNamed("ArticleSeries",
+                                      pathParameters: {
+                                      'id':articleSeries.id.toString(),
+                                      }
+                                    );
                                   },
                                     child: thumbnailCard(MediaQuery.sizeOf(context).height*0.3, MediaQuery.sizeOf(context).width, articleSeries.title, articleSeries.image)
                                 ),

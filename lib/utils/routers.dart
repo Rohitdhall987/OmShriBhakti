@@ -131,14 +131,14 @@ GoRouter route(){
             builder: (context,state)=>  SingleArticlesList(id: state.pathParameters["id"]!,)
         ),
         GoRoute(
-            path: "/ArticleSeries",
+            path: "/ArticleSeries/:id",
             name: "ArticleSeries",
-            builder: (context,state)=> const ArticleSeries()
+            builder: (context,state)=>  ArticleSeries(id: state.pathParameters['id']!,)
         ),
         GoRoute(
-            path: "/ReadArticle",
+            path: "/ReadArticle/:id",
             name: "ReadArticle",
-            builder: (context,state)=> const ReadArticle()
+            builder: (context,state)=>  ReadArticle(id: state.pathParameters['id']!,)
         ),
         GoRoute(
             path: "/ProductByCategory/:id/:name",

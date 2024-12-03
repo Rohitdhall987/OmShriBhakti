@@ -92,7 +92,11 @@ class _SingleArticlesListState extends ConsumerState<SingleArticlesList> {
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: GestureDetector(
                 onTap: (){
-                  GoRouter.of(context).pushNamed("ReadArticle");
+                  GoRouter.of(context).pushNamed("ReadArticle",
+                    pathParameters: {
+                      'id':singleArticle.id.toString(),
+                    }
+                  );
                 },
                 child: thumbnailCard(MediaQuery.sizeOf(context).height*0.3, MediaQuery.sizeOf(context).width, singleArticle.title, singleArticle.image)
             ),
