@@ -141,9 +141,9 @@ GoRouter route(){
             builder: (context,state)=> const ReadArticle()
         ),
         GoRoute(
-            path: "/ProductByCategory",
+            path: "/ProductByCategory/:id/:name",
             name: "ProductByCategory",
-            builder: (context,state)=> const ProductByCategory()
+            builder: (context,state)=>  ProductByCategory(name: state.pathParameters['name']!,id: state.pathParameters['id']!,)
         ),
         GoRoute(
             path: "/SongSeries",
@@ -151,9 +151,9 @@ GoRouter route(){
             builder: (context,state)=> const SongSeries()
         ),
         GoRoute(
-            path: "/ProductDetails",
+            path: "/ProductDetails/:id",
             name: "ProductDetails",
-            builder: (context,state)=> const ProductDetails()
+            builder: (context,state)=>  ProductDetails(productId: state.pathParameters["id"]!,)
         ),
         GoRoute(
             path: "/SelectGod",
@@ -199,11 +199,13 @@ GoRouter route(){
             path: "/QuizPage/:categoryId",
             name: "QuizPage",
             builder: (context,state)=>  QuizPage(categoryId: int.parse(state.pathParameters["categoryId"]!))
-        ),GoRoute(
+        ),
+        GoRoute(
             path: "/QuizResultPage/:data",
             name: "QuizResultPage",
             builder: (context,state)=>  QuizResultPage(jsonResult: state.pathParameters["data"],)
         ),
+
       ]);
   return routes;
 }

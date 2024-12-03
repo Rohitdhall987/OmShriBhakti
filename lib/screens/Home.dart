@@ -5,8 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:omshribhakti/provider/Navigation_Provider.dart';
 import 'package:omshribhakti/provider/auth_provider.dart';
+import 'package:omshribhakti/services/ecom_services.dart';
 import 'package:omshribhakti/services/live_darshan_service.dart';
-import 'package:omshribhakti/services/product_service.dart';
 import 'package:omshribhakti/utils/Colors.dart';
 import 'package:omshribhakti/widgets/SliderCard.dart';
 import 'package:omshribhakti/widgets/liveDarshanCard.dart';
@@ -442,9 +442,9 @@ class _HomeState extends State<Home> {
                 child: Consumer(
                   builder: (context,ref,child) {
                     final user=ref.watch(customUserProvider);
-                    ProductService productService=ProductService();
+                    EcomServices ecomService=EcomServices();
                     return FutureBuilder(
-                      future:productService.fetchTrendingProducts(user!.apiData!["token"]) ,
+                      future:ecomService.fetchTrendingProducts(user!.apiData!["token"]) ,
                       builder: (context,snapshot) {
                         if(snapshot.connectionState==ConnectionState.done && snapshot.hasData){
                           final all=snapshot.data!.trendingProducts;
@@ -454,11 +454,16 @@ class _HomeState extends State<Home> {
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context,index){
                                 final product=all[index];
-                                return Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: SizedBox(
-                                      width: MediaQuery.sizeOf(context).width*0.4,
-                                      child: trendingProduct(product.image, product.title)
+                                return GestureDetector(
+                                  onTap: ()=>GoRouter.of(context).pushNamed("ProductDetails",pathParameters: {
+                                    'id':product.productId.toString(),
+                                  }),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: SizedBox(
+                                        width: MediaQuery.sizeOf(context).width*0.4,
+                                        child: trendingProduct(product.image, product.title)
+                                    ),
                                   ),
                                 );
                               }
@@ -509,17 +514,11 @@ class _HomeState extends State<Home> {
               ),
               Stack(
                 children: [
-                  Container(
+                  SizedBox(
                     width: MediaQuery.sizeOf(context).width,
                     height: MediaQuery.sizeOf(context).height*0.29,
 
-                    decoration:const BoxDecoration(
-                        gradient: LinearGradient(
-                            colors: [Color(0xff24ACE6),Color(0xff0251AE)],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight
-                        )
-                    ),
+
                     child: Container(
                       width: MediaQuery.sizeOf(context).width,
                       height: MediaQuery.sizeOf(context).height*0.02,
@@ -605,17 +604,11 @@ class _HomeState extends State<Home> {
               ),
               Stack(
                 children: [
-                  Container(
+                  SizedBox(
                     width: MediaQuery.sizeOf(context).width,
                     height: MediaQuery.sizeOf(context).height*0.29,
 
-                    decoration:const BoxDecoration(
-                        gradient: LinearGradient(
-                            colors: [Color(0xff24ACE6),Color(0xff0251AE)],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight
-                        )
-                    ),
+
                     child: Container(
                       width: MediaQuery.sizeOf(context).width,
                       height: MediaQuery.sizeOf(context).height*0.02,

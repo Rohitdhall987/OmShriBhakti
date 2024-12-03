@@ -8,7 +8,7 @@ Widget trendingProduct(image,title){
     children: [
       Expanded(
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(00),
             child: cachedNetworkImage(image,BoxFit.fitHeight)
         ),
       ),
