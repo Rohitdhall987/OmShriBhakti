@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:omshribhakti/model/YogaByCategory.dart';
+import 'package:omshribhakti/model/home_yoga_list_model.dart';
 import 'package:omshribhakti/model/yoga_category_model.dart';
 
 final yogaCategoryServiceProvider = Provider((ref) => YogaService());
@@ -56,4 +57,23 @@ Future<List<AllYoga>> fetchYogaByCategory(token,id) async {
     throw "Unable to fetch yoga by category: $e";
   }
 }
+
+
+  Future<List<YogaList>> fetchYogaByApi(api,token,lastId) async {
+    try {
+      final apiUrl = '${_url}v1/user/$api?last_id=$lastId&apiKey=$apiKey';
+      final response = await http.post(Uri.parse(apiUrl),
+          headers: {
+            HttpHeaders.authorizationHeader:"Bearer $token"
+          });
+
+      if (response.statusCode == 200) {
+        return HomeYogaListModel.fromJson(jsonDecode(response.body)).yogaList;
+      } else {
+        throw "API Error: ${response.statusCode} - ${response.reasonPhrase}";
+      }
+    } catch (e) {
+      throw "Unable to fetch Home yoga $api: $e";
+    }
+  }
 }

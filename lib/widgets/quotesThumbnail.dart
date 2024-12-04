@@ -60,9 +60,13 @@ Widget quotesThumbnail(context,String image,title){
               },
             ),
 
-            Text(title,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
+            SizedBox(
+              width: width * 0.8,
+              child: Text(title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  overflow: TextOverflow.ellipsis
+                ),
               ),
             ),
             // Text(subTitle,

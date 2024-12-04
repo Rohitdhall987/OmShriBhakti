@@ -26,6 +26,7 @@ import 'package:omshribhakti/screens/SplashScreen.dart';
 import 'package:omshribhakti/screens/UpdateAppPage.dart';
 import 'package:omshribhakti/screens/Web/Web.dart';
 import 'package:omshribhakti/screens/Yoga/all_yoga_category.dart';
+import 'package:omshribhakti/screens/Yoga/home_yoga_list.dart';
 import 'package:omshribhakti/screens/Yoga/yoga_by_category.dart';
 import 'package:omshribhakti/screens/ecom/ByCategory.dart';
 import 'package:omshribhakti/screens/ecom/ProductDetails.dart';
@@ -204,6 +205,11 @@ GoRouter route(){
             path: "/QuizResultPage/:data",
             name: "QuizResultPage",
             builder: (context,state)=>  QuizResultPage(jsonResult: state.pathParameters["data"],)
+        ),
+        GoRoute(
+            path: "/HomeYogaLists/:apiName",
+            name: "HomeYogaLists",
+            builder: (context,state)=>  HomeYogaLists(apiName: state.pathParameters["apiName"]!,)
         ),
 
       ]);

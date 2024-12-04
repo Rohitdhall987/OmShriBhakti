@@ -12,6 +12,7 @@ import 'package:omshribhakti/utils/Colors.dart';
 import 'package:omshribhakti/widgets/SliderCard.dart';
 import 'package:omshribhakti/widgets/liveDarshanCard.dart';
 import 'package:omshribhakti/widgets/MenuItem.dart';
+import 'package:omshribhakti/widgets/login_alert.dart';
 import 'package:omshribhakti/widgets/quotesThumbnail.dart';
 import 'package:omshribhakti/widgets/speciaIItem.dart';
 import 'package:omshribhakti/widgets/trendingProduct.dart';
@@ -69,6 +70,75 @@ class _HomeState extends State<Home> {
       "icon":FontAwesomeIcons.coins,
       "routeName":"Web",
     },
+  ];
+
+  static List<Map<String,dynamic>> specialMenu=[
+    {
+      "name":"Quiz Game",
+      "sub-Heading":"Play & earn",
+      "image":"https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",
+      "callback":(ref,context){
+        if(ref.read(customUserProvider)?.signInType=="google"){
+          GoRouter.of(context).pushNamed("QuizCategory");
+        }else{
+          showLoginAlert(context);
+        }
+
+      },
+    },
+
+    {
+      "name":"Gurukul",
+      "sub-Heading":"Classes & Course",
+      "image":"https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",
+      "callback":(ref,context){
+        // if(ref.read(customUserProvider)?.signInType=="google"){
+        //   GoRouter.of(context).pushNamed("QuizCategory");
+        // }else{
+        //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        //     content: Text("Please Login First"),
+        //   ));
+        // }
+
+      },
+    },
+
+  ];
+  static List<Map<String,dynamic>> yogaMenu=[
+    {
+      "name":"Meditation",
+      "image":"https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",
+      "callback":(context){
+        GoRouter.of(context).pushNamed("HomeYogaLists",
+          pathParameters: {
+            'apiName':'allMeditationYogas',
+          }
+        );
+      },
+    },
+    {
+      "name":"Improve Aura",
+      "image":"https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",
+      "callback":(context){
+        GoRouter.of(context).pushNamed("HomeYogaLists",
+            pathParameters: {
+              'apiName':'allImproveAuraYogas',
+            }
+        );
+      },
+    },
+    {
+      "name":"Increase Focus",
+      "image":"https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",
+      "callback":(context){
+        GoRouter.of(context).pushNamed("HomeYogaLists",
+            pathParameters: {
+              'apiName':'allIncreaseFocusYoga',
+            }
+        );
+      },
+    },
+
   ];
 
   @override
@@ -277,9 +347,7 @@ class _HomeState extends State<Home> {
                                     padding: const EdgeInsets.only(left: 8.0),
                                     child: SizedBox(
                                         width: MediaQuery.sizeOf(context).width*0.6,
-                                        child: GestureDetector(
-                                            onTap: ()=>GoRouter.of(context).pushNamed("VideoPlayer"),
-                                            child: liveDarshanCard(image: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", title: "Loading"))
+                                        child: liveDarshanCard(image: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", title: "Loading")
                                     ),
                                   );
                                 }
@@ -338,9 +406,7 @@ class _HomeState extends State<Home> {
                                   return;
                                 }
                                 if(menuItems[index]["routeName"]=="Web" && user!.signInType !="google" ){
-                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                    content: Text("Please Login First"),
-                                  ));
+                                  showLoginAlert(context);
                                   return;
                                 }
                                 GoRouter.of(context).pushNamed(menuItems[index]["routeName"]);
@@ -362,10 +428,9 @@ class _HomeState extends State<Home> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: sideGaps),
                 child: SizedBox(
-                  height: MediaQuery.sizeOf(context).height*0.14,
                   child: GridView.builder(
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 4,
+                      itemCount: specialMenu.length,
                       shrinkWrap: true,
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
@@ -378,17 +443,8 @@ class _HomeState extends State<Home> {
                           builder: (context,ref,child){
 
                             return GestureDetector(
-                                onTap: (){
-                                  if(ref.read(customUserProvider)?.signInType=="google"){
-                                    GoRouter.of(context).pushNamed("QuizCategory");
-                                  }else{
-                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                      content: Text("Please Login First"),
-                                    ));
-                                  }
-
-                                },
-                                child: specialItem("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png","Quiz Game", "Play & Earn"));
+                                onTap: ()=>specialMenu[index]['callback'](ref,context),
+                                child: specialItem(specialMenu[index]['image'],specialMenu[index]['name'], specialMenu[index]['sub-Heading']));
                           },
                         );
                       }
@@ -513,28 +569,7 @@ class _HomeState extends State<Home> {
               SizedBox(
                 height: 30,
               ),
-              Stack(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.sizeOf(context).width,
-                    height: MediaQuery.sizeOf(context).height*0.29,
 
-
-                    child: Container(
-                      width: MediaQuery.sizeOf(context).width,
-                      height: MediaQuery.sizeOf(context).height*0.02,
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              colors:[
-                                AppTheme.background,
-                                Colors.transparent
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter
-                          )
-                      ),
-                    ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: SizedBox(
@@ -581,13 +616,22 @@ class _HomeState extends State<Home> {
                               SizedBox(
                                 height: 16,
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title",),
-                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title",),
-                                  quotesThumbnail(context, "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", "title",),
-                                ],
+                              SizedBox(
+                                height: MediaQuery.sizeOf(context).height*0.17,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                    itemCount: yogaMenu.length,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context,index){
+                                      return Padding(
+                                        padding: const EdgeInsets.only(right: 16.0),
+                                        child: GestureDetector(
+                                          onTap: ()=>yogaMenu[index]['callback'](context),
+                                            child: quotesThumbnail(context, yogaMenu[index]['image'], yogaMenu[index]['name'])
+                                        ),
+                                      );
+                                    }
+                                ),
                               ),
                               SizedBox(
                                 height: 8,
@@ -597,34 +641,13 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                     ),
-                  )
-                ],
-              ),
+                  ),
+
               SizedBox(
                 height: 30,
               ),
-              Stack(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.sizeOf(context).width,
-                    height: MediaQuery.sizeOf(context).height*0.29,
 
 
-                    child: Container(
-                      width: MediaQuery.sizeOf(context).width,
-                      height: MediaQuery.sizeOf(context).height*0.02,
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              colors:[
-                                AppTheme.background,
-                                Colors.transparent
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter
-                          )
-                      ),
-                    ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: SizedBox(
@@ -699,7 +722,7 @@ class _HomeState extends State<Home> {
                                               }
                                             );
                                           },
-                                            child: quotesThumbnail(context, data.image, data.Title, )
+                                            child: quotesThumbnail(context, data.image, data.Title,)
                                         )
                                         ).toList(),
                                       );
@@ -715,9 +738,8 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                     ),
-                  )
-                ],
-              ),
+                  ),
+
               const SizedBox(
                 height: 24,
               ),
