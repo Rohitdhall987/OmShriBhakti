@@ -548,6 +548,43 @@ class _HomeState extends State<Home> {
               SizedBox(
                 height: 30,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Tour Packages",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18
+                        ),
+                      ),
+                      Text("Explore India’s Devotional places ",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12
+                        ),
+                      )
+                    ],
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      GoRouter.of(context).pushNamed("AllTours");
+                    },
+                    child: Text("See All",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 16,
+              ),
               CarouselSlider(
                   items: [
                     GestureDetector(

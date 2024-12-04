@@ -35,6 +35,7 @@ import 'package:omshribhakti/screens/geeta/ReadShloak.dart';
 import 'package:omshribhakti/screens/geeta/Shloak.dart';
 import 'package:omshribhakti/screens/mandir/Mandir.dart';
 import 'package:omshribhakti/screens/mandir/SelectGod.dart';
+import 'package:omshribhakti/screens/tours/all_tours.dart';
 import 'package:omshribhakti/utils/Observer.dart';
 
 
@@ -210,6 +211,11 @@ GoRouter route(){
             path: "/HomeYogaLists/:apiName",
             name: "HomeYogaLists",
             builder: (context,state)=>  HomeYogaLists(apiName: state.pathParameters["apiName"]!,)
+        ),
+        GoRoute(
+            path: "/AllTours",
+            name: "AllTours",
+            builder: (context,state)=> const AllTours()
         ),
 
       ]);
