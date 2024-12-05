@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:omshribhakti/model/tour_category_model.dart';
 import 'package:omshribhakti/model/tour_trips_model.dart';
 import 'package:omshribhakti/provider/auth_provider.dart';
@@ -108,7 +109,7 @@ class _AllToursState extends ConsumerState<AllTours> {
                 ),
               ),
               SizedBox(
-                height: 50,
+                height: 30,
                 child: ListView.builder(
                   itemCount: categories!.tripCategories.length,
                   scrollDirection: Axis.horizontal,
@@ -118,11 +119,29 @@ class _AllToursState extends ConsumerState<AllTours> {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: GestureDetector(
                         onTap: () {
-                          // Handle category tap if needed
+                          GoRouter.of(context).pushNamed("TourByCategory",
+                            pathParameters: {
+                              'id':category.id.toString(),
+                              'name':category.title.toString(),
+                            }
+                          );
                         },
-                        child: Text(
-                          category.title,
-                          style: const TextStyle(color: Colors.white),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.white,
+                            ),
+                            borderRadius: BorderRadius.circular(100)
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Center(
+                              child: Text(
+                                category.title,
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     );
@@ -155,12 +174,6 @@ class _AllToursState extends ConsumerState<AllTours> {
                         scrollDirection: Axis.horizontal,
                         itemCount: _trips[categoryId]!.length ,
                         itemBuilder: (context, index) {
-                          // if (index == _trips[categoryId]!.length) {
-                          //   // If more data is available, show a progress indicator.
-                          //   return const Center(
-                          //     child: CircularProgressIndicator(),
-                          //   );
-                          // }
                           final trip = _trips[categoryId]![index];
                           return SizedBox(
                             width: MediaQuery.sizeOf(context).width*0.6,

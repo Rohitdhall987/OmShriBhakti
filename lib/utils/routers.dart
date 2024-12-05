@@ -36,6 +36,7 @@ import 'package:omshribhakti/screens/geeta/Shloak.dart';
 import 'package:omshribhakti/screens/mandir/Mandir.dart';
 import 'package:omshribhakti/screens/mandir/SelectGod.dart';
 import 'package:omshribhakti/screens/tours/all_tours.dart';
+import 'package:omshribhakti/screens/tours/tour_by_category.dart';
 import 'package:omshribhakti/utils/Observer.dart';
 
 
@@ -216,6 +217,11 @@ GoRouter route(){
             path: "/AllTours",
             name: "AllTours",
             builder: (context,state)=> const AllTours()
+        ),
+        GoRoute(
+            path: "/TourByCategory/:id/:name",
+            name: "TourByCategory",
+            builder: (context,state)=>  TourByCategory(categoryId: state.pathParameters['id']!, name: state.pathParameters['name']!)
         ),
 
       ]);

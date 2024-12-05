@@ -8,7 +8,9 @@ import 'package:omshribhakti/provider/auth_provider.dart';
 import 'package:omshribhakti/services/ecom_services.dart';
 import 'package:omshribhakti/services/live_darshan_service.dart';
 import 'package:omshribhakti/services/quotes_services.dart';
+import 'package:omshribhakti/services/tour_services.dart';
 import 'package:omshribhakti/utils/Colors.dart';
+import 'package:omshribhakti/widgets/CachedNetworkImage.dart';
 import 'package:omshribhakti/widgets/SliderCard.dart';
 import 'package:omshribhakti/widgets/liveDarshanCard.dart';
 import 'package:omshribhakti/widgets/MenuItem.dart';
@@ -585,23 +587,59 @@ class _HomeState extends State<Home> {
               SizedBox(
                 height: 16,
               ),
-              CarouselSlider(
-                  items: [
-                    GestureDetector(
-                      onTap: ()=>GoRouter.of(context).pushNamed("Web"),
-                      child: SlicerCard(title: "title",  fromState: "fromState", toState: "toState", date: "2024-10-25 14:15:16", image: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"),
-                    ),
-                    GestureDetector(
-                      onTap: ()=>GoRouter.of(context).pushNamed("Web"),
-                      child: SlicerCard(title: "title",  fromState: "fromState", toState: "toState", date: "2024-10-27 14:15:16", image: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"),
-                    ),
-                  ],
-                  options: CarouselOptions(
-                      height: MediaQuery.sizeOf(context).height*0.4,
-                      viewportFraction: 1,
-                      autoPlay: true,
-                      padEnds: false
-                  )
+              Consumer(
+                builder: (context,ref,child) {
+                  final user=ref.watch(customUserProvider);
+                  final service=TourServices();
+
+                  return FutureBuilder(
+                    future: service.fetchRandomTours(user!.apiData!['token']),
+                    builder: (context,snapshot) {
+                      if(snapshot.data==null || snapshot.connectionState != ConnectionState.done){
+                        return CarouselSlider(
+                            items: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: cachedNetworkImage("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", BoxFit.cover)
+                                ),
+                              ),
+                            ],
+                            options: CarouselOptions(
+                                height: MediaQuery.sizeOf(context).height*0.3,
+                                viewportFraction: 1,
+                                autoPlay: true,
+                                padEnds: false
+                            )
+                        );
+                      }
+                      final trips=snapshot.data!;
+                      return CarouselSlider(
+                          items: trips.map((trip)=>
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                    onTap: ()=>GoRouter.of(context).pushNamed("Web"),
+                                    child: SizedBox(
+                                      child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: cachedNetworkImage(trip.image, BoxFit.fitWidth)
+                                      ),
+                                    )
+                                ),
+                              )
+                          ).toList(),
+                          options: CarouselOptions(
+                              height: MediaQuery.sizeOf(context).height*0.3,
+                              viewportFraction: 1,
+                              autoPlay: true,
+                              padEnds: false
+                          )
+                      );
+                    }
+                  );
+                }
               ),
               SizedBox(
                 height: 30,
